@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 export default function (ComposedComponent) {
   class Authentication extends Component {
-    componentWillMount() {
-      if (!this.props.authenticated) {
-        this.props.history.push('/signin');
+    componentDidMount() {
+      const { authenticated, history } = this.props;
+      if (authenticated) {
+        history.push('/signin');
       }
     }
-    componentWillUpdate(nextProps) {
-      if (!nextProps.authenticated) {
-        this.props.history.push('/signin');
-      }
-    }
-    PropTypes = {
-      router: PropTypes.object,
-    }
+
     render() {
       return <ComposedComponent {...this.props} />;
     }
   }
+
+  Authentication.propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    history: PropTypes.object.isRequired,
+  }
+
   function mapStateToProps(state) {
     return { authenticated: state.auth.authenticated };
   }

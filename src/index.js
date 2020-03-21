@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -8,7 +9,7 @@ import reduxThunk from 'redux-thunk';
 import Navbar from './components/universal/Navbar';
 import Homepage from './pages/Homepage';
 import Signin from './components/auth/Signin';
-//import Signup from './components/auth/Signup';
+// import Signup from './components/auth/Signup';
 import reducers from './reducers';
 import requireAuth from './components/hoc/RequireAuth';
 import noRequireAuth from './components/hoc/noRequireAuth';
@@ -19,7 +20,7 @@ const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 const user = localStorage.getItem('user');
-if(user) {
+if (user) {
   store.dispatch({ type: AUTHENTICATED });
 }
 ReactDOM.render(
@@ -35,5 +36,5 @@ ReactDOM.render(
       </div>
     </Router>
   </Provider>,
-  document.querySelector('#root')
+  document.querySelector('#root'),
 );

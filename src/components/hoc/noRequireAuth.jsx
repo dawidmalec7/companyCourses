@@ -4,25 +4,21 @@ import PropTypes from 'prop-types';
 
 export default function (ComposedComponent) {
   class NotAuthentication extends Component {
-    componentWillMount() {
-      if (this.props.authenticated) {
-        this.props.history.push('/secret');
+    componentDidMount() {
+      const { authenticated, history } = this.props;
+      if (authenticated) {
+        history.push('/secret');
       }
-    }
-
-    componentWillUpdate(nextProps) {
-      if (nextProps.authenticated) {
-        this.props.history.push('/secret');
-      }
-    }
-
-    PropTypes = {
-      router: PropTypes.object,
     }
 
     render() {
       return <ComposedComponent {...this.props} />;
     }
+  }
+
+  NotAuthentication.propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   function mapStateToProps(state) {
