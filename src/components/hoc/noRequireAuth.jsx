@@ -4,10 +4,19 @@ import PropTypes from 'prop-types';
 
 export default function (ComposedComponent) {
   class NotAuthentication extends Component {
-    componentDidMount() {
+    // eslint-disable-next-line camelcase
+    UNSAFE_componentWillMount() {
       const { authenticated, history } = this.props;
       if (authenticated) {
-        history.push('/secret');
+        history.push('/dashboard');
+      }
+    }
+
+    // eslint-disable-next-line camelcase
+    UNSAFE_componentWillUpdate() {
+      const { authenticated, history } = this.props;
+      if (authenticated) {
+        history.push('/signin');
       }
     }
 
