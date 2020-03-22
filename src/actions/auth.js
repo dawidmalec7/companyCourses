@@ -12,7 +12,7 @@ export function signInAction({ email, password }, history) {
       const res = await axios.post(`${URL}/api/login`, { email, password });
       dispatch({ type: AUTHENTICATED });
       localStorage.setItem('user', res.data.token);
-      history.push('/dashboard');
+      history.push('/');
     } catch (error) {
       dispatch({
         type: AUTHENTICATION_ERROR,
@@ -22,8 +22,9 @@ export function signInAction({ email, password }, history) {
   };
 }
 
-export function signOutAction() {
+export function signOutAction(history) {
   localStorage.clear();
+  history.push('/signin');
   return {
     type: UNAUTHENTICATED,
   };

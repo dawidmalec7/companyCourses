@@ -3,18 +3,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
 
-import Navbar from './components/universal/Navbar';
-import Homepage from './pages/Homepage';
-import Signin from './components/auth/Signin';
-// import Signup from './components/auth/Signup';
 import reducers from './reducers';
-import requireAuth from './components/hoc/RequireAuth';
-import noRequireAuth from './components/hoc/noRequireAuth';
 import { AUTHENTICATED } from './actions/auth';
-import Dashboard from './pages/Dashboard';
+import App from './App';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
@@ -26,14 +20,7 @@ if (user) {
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <div>
-        <Navbar />
-        <Route exact path="/" component={Homepage} />
-        <Route path="/signin" component={noRequireAuth(Signin)} />
-        {/* <Route path="/signup" component={noRequireAuth(Signup)} /> */}
-        {/* <Route path="/signout" component={requireAuth(Signout)} /> */}
-        <Route path="/dashboard" component={requireAuth(Dashboard)} />
-      </div>
+      <App />
     </Router>
   </Provider>,
   document.querySelector('#root'),

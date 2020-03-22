@@ -6,8 +6,8 @@ import { signInAction } from '../../actions/auth';
 
 class Signin extends Component {
   submit = (values) => {
-    const { signInAction: signInActionProps, history } = this.props;
-    signInActionProps(values, history);
+    const { signIn, history } = this.props;
+    signIn(values, history);
   };
 
   errorMessage() {
@@ -49,7 +49,7 @@ class Signin extends Component {
 }
 
 Signin.propTypes = {
-  signInAction: PropTypes.func.isRequired,
+  signIn: PropTypes.func.isRequired,
   history: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   handleSubmit: PropTypes.func.isRequired,
@@ -58,12 +58,10 @@ Signin.defaultProps = {
   errorMessage: false,
 };
 
-function mapStateToProps(state) {
-  return { errorMessage: state.auth.error };
-}
+const mapStateToProps = (state) => ({ errorMessage: state.auth.error })
 
 const reduxFormSignin = reduxForm({
   form: 'signin',
 })(Signin);
 
-export default connect(mapStateToProps, { signInAction })(reduxFormSignin);
+export default connect(mapStateToProps, { signIn: signInAction })(reduxFormSignin);

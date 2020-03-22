@@ -8,7 +8,7 @@ export default function (ComposedComponent) {
     UNSAFE_componentWillMount() {
       const { authenticated, history } = this.props;
       if (authenticated) {
-        history.push('/dashboard');
+        history.push('/');
       }
     }
 
@@ -16,7 +16,7 @@ export default function (ComposedComponent) {
     UNSAFE_componentWillUpdate() {
       const { authenticated, history } = this.props;
       if (authenticated) {
-        history.push('/signin');
+        history.push('/');
       }
     }
 
