@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { signInAction } from '../../actions/auth';
+import Input from '../UI/Forms/Input/Input';
 
 class Signin extends Component {
   submit = (values) => {
@@ -27,13 +28,13 @@ class Signin extends Component {
           <form onSubmit={handleSubmit(this.submit)}>
             <Field
               name="email"
-              component="input"
+              component={Input}
               type="text"
               placeholder="Email"
             />
             <Field
               name="password"
-              component="input"
+              component={Input}
               type="password"
               placeholder="Password"
             />

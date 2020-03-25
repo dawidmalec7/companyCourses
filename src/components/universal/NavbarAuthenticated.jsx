@@ -161,4 +161,4 @@ const mapDispatchToProps = (dispatch) => ({
   signOut: (history) => dispatch(signOutAction(history)),
 })
 
-export default connect({}, mapDispatchToProps)(withRouter(NavbarAuthenticated));
+export default connect(() => {}, mapDispatchToProps)(withRouter(NavbarAuthenticated));

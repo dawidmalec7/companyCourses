@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+import { hot } from 'react-hot-loader'
 import Navbar from './components/universal/Navbar';
 import Signin from './components/auth/Signin';
 // import Signup from './components/auth/Signup';
@@ -13,11 +14,12 @@ import requireAuth from './components/hoc/RequireAuth';
 import noRequireAuth from './components/hoc/noRequireAuth';
 import Dashboard from './pages/Dashboard';
 
-
 const App = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
+      background: '#232F34',
+      height: '100vh',
     },
     toolbar: {
       display: 'flex',
@@ -48,4 +50,4 @@ const App = () => {
     </div>
   )
 }
-export default App;
+export default process.env.NODE_ENV === 'development' ? hot(module)(App) : App
