@@ -17,7 +17,6 @@ module.exports = {
   },
   plugins: ["react"],
   rules: {
-    "linebreak-style": ["error", "unix"],
     semi: 0,
     "react/jsx-filename-extension": [
       1,
@@ -26,7 +25,8 @@ module.exports = {
       }
     ],
     "react/jsx-props-no-spreading": 0,
-    "react/forbid-prop-types": 0
+    "react/forbid-prop-types": 0,
+    "linebreak-style": [0, "error", "windows"],
   },
   parser: "babel-eslint"
 };

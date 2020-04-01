@@ -1,0 +1,44 @@
+@import "../../config/scss/variables.scss";
+
+.inputText {
+    padding: 10px;
+}
+
+.TextField {
+    flex-grow: 2;
+}
+
+.icon {
+    margin: 15px;
+}
+
+.grid {
+    padding: 15px 0;
+    background: $white;
+}
+
+.TextUppercase {
+    text-transform: uppercase;
+}
+
+.gridWithLine {
+    border-bottom: 1px solid #344955;
+}
+
+.gridTop {
+    border-radius: 10px 10px 0 0;
+}
+
+.gridBottom {
+    border-radius: 0 0 10px 10px;
+}
+
+.HugeButton {
+    width: 100%;
+    padding: 23px 0 !important;
+    margin-top: 40px !important;
+    border-radius: 20px !important;
+    color: white !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+}

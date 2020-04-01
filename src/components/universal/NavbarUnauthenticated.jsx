@@ -6,7 +6,7 @@ const NavbarUnauthenticated = () => (
     <div className="container">
       <ul>
         <li key="signin"><Link to="/signin">Sign in</Link></li>
-        <li key="signup"><Link to="/signup">Sign up</Link></li>
+        <li key="signup"><Link to="/forgot-password">Forgot Password</Link></li>
       </ul>
     </div>
   </nav>
