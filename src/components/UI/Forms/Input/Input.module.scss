@@ -1,7 +1,21 @@
 @import "../../../../config/scss/variables.scss";
 
 .inputText {
-  background: $primary;
-  color: red;
-  padding: 20px 0;
+  background: $white;
+  padding:10px 0;
+}
+.icon{
+  margin: 15px;
+}
+.grid{
+  padding:10px 0;
+}
+
+.gridWithLine {
+  border-bottom: 1px solid #344955;
+}
+
+.mainGrid{
+  background: $white;
+  border-radius: '10px';
 }

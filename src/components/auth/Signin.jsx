@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { signInAction } from '../../actions/auth';
 import Input from '../UI/Forms/Input/Input';
+import { signInAction } from '../../actions/auth';
 
 class Signin extends Component {
   submit = (values) => {
@@ -21,12 +21,13 @@ class Signin extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+
     return (
       <div className="form">
         <div className="container">
           <h2>Sign In</h2>
           <form onSubmit={handleSubmit(this.submit)}>
-            <Field
+            {/* <Field
               name="email"
               component={Input}
               type="text"
@@ -37,7 +38,10 @@ class Signin extends Component {
               component={Input}
               type="password"
               placeholder="Password"
-            />
+            /> */}
+            <div className="">
+              <Input />
+            </div>
             <button type="submit" className="blue">
               Sign In
             </button>
