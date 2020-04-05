@@ -10,7 +10,10 @@ export function signInAction({ email, password }, history) {
   return async (dispatch) => {
     try {
       const res = await axios.post(`${URL}/api/login`, { email, password });
-      dispatch({ type: AUTHENTICATED });
+      dispatch({
+        type: AUTHENTICATED,
+        payload: 'admin',
+      });
       localStorage.setItem('user', res.data.token);
       history.push('/');
     } catch (error) {

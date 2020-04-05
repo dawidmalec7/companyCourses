@@ -94,7 +94,7 @@ const App = ({ authenticated }) => {
           {authenticated && (
             <>
               <div className={classes.toolbar} />
-              <Route exact path="/" component={requireAuth(Dashboard)} />
+              <Route exact path="/" component={requireAuth(Dashboard, ['admin'])} />
             </>
           )}
         </main>

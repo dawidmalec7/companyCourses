@@ -15,7 +15,7 @@ const store = createStoreWithMiddleware(reducers);
 
 const user = localStorage.getItem('user');
 if (user) {
-  store.dispatch({ type: AUTHENTICATED });
+  store.dispatch({ type: AUTHENTICATED, payload: 'admin' });
 }
 ReactDOM.render(
   <Provider store={store}>
