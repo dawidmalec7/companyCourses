@@ -21,9 +21,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import ListItemLink from '../UI/ListItemLink/ListItemLink';
+import ListItemLink from '../../UI/ListItemLink/ListItemLink';
 
-import { signOutAction } from '../../actions/auth';
+import { signOutAction } from '../../../actions/auth';
 
 const NavbarAuthenticated = ({ signOut, history }) => {
   const drawerWidth = 240;

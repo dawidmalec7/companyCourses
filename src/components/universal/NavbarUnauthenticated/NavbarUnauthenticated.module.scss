@@ -1,0 +1,30 @@
+@import "../../../config/scss/variables.scss";
+
+.NavBar {
+  margin-bottom: 60px;
+}
+
+.NavList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  padding-left: 0;
+}
+
+.NavItem {
+  .NavLink {
+    text-decoration: none;
+    text-transform: capitalize;
+    font-family: $regularBold;
+    padding: 0 20px;
+    font-size: 42px;
+    color: #344955;
+    font-weight: 900;
+  }
+}
+
+.isActive {
+  color: $primary !important;
+}

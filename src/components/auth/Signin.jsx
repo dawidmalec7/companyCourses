@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Input from '@material-ui/core/Input';
-import { withStyles } from '@material-ui/core/styles';
+
 import clsx from 'clsx';
-import InputLabel from '@material-ui/core/InputLabel';
 import PermIdentity from '@material-ui/icons/PermIdentity';
 import Lock from '@material-ui/icons/Lock';
 import Grid from '@material-ui/core/Grid';
@@ -48,39 +46,37 @@ class Signin extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div className="form">
-        <div className="container">
-          <form onSubmit={handleSubmit(this.submit)}>
-            <Container maxWidth="sm">
-              <Grid container className={clsx(css.gridWithLine, css.grid, css.gridTop)}>
-                <PermIdentity className={clsx(css.icon)} color="primary" fontSize="large" />
-                <Field
-                  name="email"
-                  component={renderTextField}
-                  label="Username / Email"
-                  InputLabelProps={{ className: clsx(css.TextUppercase, css.inputText) }}
-                  className={css.TextField}
-                  id="email"
-                />
-              </Grid>
-              <Grid container className={clsx(css.grid, css.gridBottom)}>
-                <Lock className={clsx(css.icon)} color="primary" fontSize="large" />
-                <Field
-                  name="password"
-                  component={renderTextField}
-                  label="Password"
-                  InputLabelProps={{ className: clsx(css.TextUppercase, css.inputText) }}
-                  className={css.TextField}
-                  id="password"
-                />
-              </Grid>
-              <Button type="Submit" variant="contained" className={css.HugeButton} color="primary">
-                Log In
-              </Button>
-            </Container>
-          </form>
-          {this.errorMessage()}
-        </div>
+      <div className={css.Form}>
+        <form onSubmit={handleSubmit(this.submit)}>
+          <Container maxWidth="sm">
+            <Grid container className={clsx(css.gridWithLine, css.grid, css.gridTop)}>
+              <PermIdentity className={clsx(css.icon)} color="primary" fontSize="large" />
+              <Field
+                name="email"
+                component={renderTextField}
+                label="Username / Email"
+                InputLabelProps={{ className: clsx(css.TextUppercase, css.inputText) }}
+                className={css.TextField}
+                id="email"
+              />
+            </Grid>
+            <Grid container className={clsx(css.grid, css.gridBottom)}>
+              <Lock className={clsx(css.icon)} color="primary" fontSize="large" />
+              <Field
+                name="password"
+                component={renderTextField}
+                label="Password"
+                InputLabelProps={{ className: clsx(css.TextUppercase, css.inputText) }}
+                className={css.TextField}
+                id="password"
+              />
+            </Grid>
+            <Button type="Submit" variant="contained" className={css.HugeButton} color="primary">
+              Log In
+            </Button>
+          </Container>
+        </form>
+        {this.errorMessage()}
       </div>
     );
   }

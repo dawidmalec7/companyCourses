@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import NavbarAuthenticated from './NavbarAuthenticated';
-import NavbarUnauthenticated from './NavbarUnauthenticated';
+import NavbarUnauthenticated from './NavbarUnauthenticated/NavbarUnauthenticated';
 
 const Navbar = ({ authenticated }) => (
   <nav className="navbar">

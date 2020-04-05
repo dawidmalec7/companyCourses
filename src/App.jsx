@@ -8,14 +8,16 @@ import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { hot } from 'react-hot-loader'
-import NavbarAuthenticated from './components/universal/NavbarAuthenticated';
-import NavbarUnauthenticated from './components/universal/NavbarUnauthenticated';
+import Grid from '@material-ui/core/Grid';
+import NavbarAuthenticated from './components/universal/NavbarAuthenticated/NavbarAuthenticated';
+import NavbarUnauthenticated from './components/universal/NavbarUnauthenticated/NavbarUnauthenticated';
 import Signin from './components/auth/Signin';
 import ForgotPassword from './components/auth/ForgotPassword';
 import requireAuth from './components/hoc/RequireAuth';
 
 import noRequireAuth from './components/hoc/noRequireAuth';
 import Dashboard from './pages/Dashboard';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -25,6 +27,20 @@ const theme = createMuiTheme({
     secondary: {
       main: '#232F34',
     },
+  },
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
   },
   props: {
     MuiInput: {
@@ -51,7 +67,6 @@ const App = ({ authenticated }) => {
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3),
     },
   }));
   const classes = useStyles();
@@ -63,14 +78,25 @@ const App = ({ authenticated }) => {
         { authenticated && <NavbarAuthenticated /> }
         <main className={classes.content}>
           {!authenticated && (
-            <>
+            <Grid
+              container
+              spacing={0}
+              direction="column"
+              alignItems="center"
+              justify="center"
+              style={{ minHeight: '100vh' }}
+            >
               <NavbarUnauthenticated />
               <Route path="/signin" component={noRequireAuth(Signin)} />
               <Route path="/forgot-password" component={noRequireAuth(ForgotPassword)} />
+            </Grid>
+          )}
+          {authenticated && (
+            <>
+              <div className={classes.toolbar} />
+              <Route exact path="/" component={requireAuth(Dashboard)} />
             </>
           )}
-          <div className={classes.toolbar} />
-          <Route exact path="/" component={requireAuth(Dashboard)} />
         </main>
       </div>
     </MuiThemeProvider>

@@ -4,6 +4,10 @@
     padding: 10px;
 }
 
+.Form {
+    width: 100%;
+}
+
 .TextField {
     flex-grow: 2;
 }
@@ -13,7 +17,7 @@
 }
 
 .grid {
-    padding: 15px 0;
+    padding: 10px 0;
     background: $white;
 }
 
@@ -29,16 +33,28 @@
     border-radius: 10px 10px 0 0;
 }
 
+.gridBorderFull {
+    border-radius: 10px;
+}
+
 .gridBottom {
     border-radius: 0 0 10px 10px;
 }
 
 .HugeButton {
     width: 100%;
-    padding: 23px 0 !important;
+    padding: 13px 0 !important;
     margin-top: 40px !important;
     border-radius: 20px !important;
     color: white !important;
     font-size: 18px !important;
     font-weight: 700 !important;
+}
+
+.smallText {
+    color: #7F7F7F;
+    font-family: $italic !important;
+    margin-bottom: 30px !important;
+    text-align: center;
+    font-size: 18px !important;
 }

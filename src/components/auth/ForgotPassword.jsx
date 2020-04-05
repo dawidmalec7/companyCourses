@@ -8,8 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import css from './Signin.module.scss';
-
 
 const renderTextField = ({
   label,
@@ -47,8 +47,8 @@ class ForgotPassword extends Component {
           <div className="container">
             <form onSubmit={handleSubmit(this.submit)}>
               <Container maxWidth="sm">
-                <div>Enter the email address you used to create your account and we will email you a link to reset your password</div>
-                <Grid container className={clsx(css.gridWithLine, css.grid, css.gridTop)}>
+                <Typography className={css.smallText}>Enter the email address you used to create your account and we will email you a link to reset your password.</Typography>
+                <Grid container className={clsx(css.gridWithLine, css.grid, css.gridBorderFull)}>
                   <PermIdentity className={clsx(css.icon)} color="primary" fontSize="large" />
                   <Field
                     name="email"
