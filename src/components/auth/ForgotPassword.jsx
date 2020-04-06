@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import PermIdentity from '@material-ui/icons/PermIdentity';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import css from './Signin.module.scss';
+import React, { Component } from "react";
+import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import PermIdentity from "@material-ui/icons/PermIdentity";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+import css from "./Signin.module.scss";
+import AuthButton from "../UI/AuthButton/AuthButton";
 
 const renderTextField = ({
   label,
@@ -24,51 +24,61 @@ const renderTextField = ({
     {...input}
     {...custom}
   />
-)
+);
 class ForgotPassword extends Component {
-    submit = (values) => {
-      // const { ForgotPassword, history } = this.props;
-      // ForgotPassword(values, history);
-    };
+  submit = (values) => {
+    // const { ForgotPassword, history } = this.props;
+    // ForgotPassword(values, history);
+  };
 
-    errorMessage() {
-      const { errorMessage } = this.props;
-      if (errorMessage) {
-        return <div className="info-red">{errorMessage}</div>;
-      }
-      return '';
+  errorMessage() {
+    const { errorMessage } = this.props;
+    if (errorMessage) {
+      return <div className="info-red">{errorMessage}</div>;
     }
+    return "";
+  }
 
-    render() {
-      const { handleSubmit } = this.props;
+  render() {
+    const { handleSubmit } = this.props;
 
-      return (
-        <div className="form">
-          <div className="container">
-            <form onSubmit={handleSubmit(this.submit)}>
-              <Container maxWidth="sm">
-                <Typography className={css.smallText}>Enter the email address you used to create your account and we will email you a link to reset your password.</Typography>
-                <Grid container className={clsx(css.gridWithLine, css.grid, css.gridBorderFull)}>
-                  <PermIdentity className={clsx(css.icon)} color="primary" fontSize="large" />
-                  <Field
-                    name="email"
-                    component={renderTextField}
-                    label="Email"
-                    InputLabelProps={{ className: clsx(css.TextUppercase, css.inputText) }}
-                    className={css.TextField}
-                    id="email"
-                  />
-                </Grid>
-                <Button type="Submit" variant="contained" className={css.HugeButton} color="primary">
-                  Send Email
-                </Button>
-              </Container>
-            </form>
-            {this.errorMessage()}
-          </div>
+    return (
+      <div className="form">
+        <div className="container">
+          <form onSubmit={handleSubmit(this.submit)}>
+            <Container maxWidth="sm">
+              <Typography className={css.smallText}>
+                Enter the email address you used to create your account and we
+                will email you a link to reset your password.
+              </Typography>
+              <Grid
+                container
+                className={clsx(css.gridWithLine, css.grid, css.gridBorderFull)}
+              >
+                <PermIdentity
+                  className={clsx(css.icon)}
+                  color="primary"
+                  fontSize="large"
+                />
+                <Field
+                  name="email"
+                  component={renderTextField}
+                  label="Email"
+                  InputLabelProps={{
+                    className: clsx(css.TextUppercase, css.inputText),
+                  }}
+                  className={css.TextField}
+                  id="email"
+                />
+              </Grid>
+              <AuthButton text="Send Email" type="submit" />
+            </Container>
+          </form>
+          {this.errorMessage()}
         </div>
-      );
-    }
+      </div>
+    );
+  }
 }
 
 ForgotPassword.propTypes = {
@@ -80,10 +90,10 @@ ForgotPassword.defaultProps = {
   errorMessage: false,
 };
 
-const mapStateToProps = (state) => ({ errorMessage: state.auth.error })
+const mapStateToProps = (state) => ({ errorMessage: state.auth.error });
 
 const reduxFormForgotPassword = reduxForm({
-  form: 'ForgotPassword',
+  form: "ForgotPassword",
 })(ForgotPassword);
 
 export default connect(mapStateToProps)(reduxFormForgotPassword);

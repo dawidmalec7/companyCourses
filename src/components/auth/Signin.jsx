@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-import clsx from 'clsx';
-import PermIdentity from '@material-ui/icons/PermIdentity';
-import Lock from '@material-ui/icons/Lock';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import { signInAction } from '../../actions/auth';
-import css from './Signin.module.scss';
-
+import clsx from "clsx";
+import PermIdentity from "@material-ui/icons/PermIdentity";
+import Lock from "@material-ui/icons/Lock";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Container from "@material-ui/core/Container";
+import { signInAction } from "../../actions/auth";
+import css from "./Signin.module.scss";
+import AuthButton from "../UI/AuthButton/AuthButton";
 
 const renderTextField = ({
   label,
@@ -27,7 +26,7 @@ const renderTextField = ({
     {...input}
     {...custom}
   />
-)
+);
 class Signin extends Component {
   submit = (values) => {
     const { signIn, history } = this.props;
@@ -39,7 +38,7 @@ class Signin extends Component {
     if (errorMessage) {
       return <div className="info-red">{errorMessage}</div>;
     }
-    return '';
+    return "";
   }
 
   render() {
@@ -49,31 +48,44 @@ class Signin extends Component {
       <div className={css.Form}>
         <form onSubmit={handleSubmit(this.submit)}>
           <Container maxWidth="sm">
-            <Grid container className={clsx(css.gridWithLine, css.grid, css.gridTop)}>
-              <PermIdentity className={clsx(css.icon)} color="primary" fontSize="large" />
+            <Grid
+              container
+              className={clsx(css.gridWithLine, css.grid, css.gridTop)}
+            >
+              <PermIdentity
+                className={clsx(css.icon)}
+                color="primary"
+                fontSize="large"
+              />
               <Field
                 name="email"
                 component={renderTextField}
                 label="Username / Email"
-                InputLabelProps={{ className: clsx(css.TextUppercase, css.inputText) }}
+                InputLabelProps={{
+                  className: clsx(css.TextUppercase, css.inputText),
+                }}
                 className={css.TextField}
                 id="email"
               />
             </Grid>
             <Grid container className={clsx(css.grid, css.gridBottom)}>
-              <Lock className={clsx(css.icon)} color="primary" fontSize="large" />
+              <Lock
+                className={clsx(css.icon)}
+                color="primary"
+                fontSize="large"
+              />
               <Field
                 name="password"
                 component={renderTextField}
                 label="Password"
-                InputLabelProps={{ className: clsx(css.TextUppercase, css.inputText) }}
+                InputLabelProps={{
+                  className: clsx(css.TextUppercase, css.inputText),
+                }}
                 className={css.TextField}
                 id="password"
               />
             </Grid>
-            <Button type="Submit" variant="contained" className={css.HugeButton} color="primary">
-              Log In
-            </Button>
+            <AuthButton text="Log In" type="submit" />
           </Container>
         </form>
         {this.errorMessage()}
@@ -92,10 +104,12 @@ Signin.defaultProps = {
   errorMessage: false,
 };
 
-const mapStateToProps = (state) => ({ errorMessage: state.auth.error })
+const mapStateToProps = (state) => ({ errorMessage: state.auth.error });
 
 const reduxFormSignin = reduxForm({
-  form: 'signin',
+  form: "signin",
 })(Signin);
 
-export default connect(mapStateToProps, { signIn: signInAction })(reduxFormSignin);
+export default connect(mapStateToProps, { signIn: signInAction })(
+  reduxFormSignin
+);
