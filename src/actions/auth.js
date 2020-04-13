@@ -7,7 +7,6 @@ export const AUTHENTICATION_ERROR = 'authentication_error';
 const URL = 'https://reqres.in';
 
 export function signInAction({ email, password }, history) {
-  debugger;
   return async (dispatch) => {
     try {
       const res = await axios.post(`${URL}/api/login`, { email, password });

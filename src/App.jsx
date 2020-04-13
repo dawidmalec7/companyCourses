@@ -9,14 +9,17 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { hot } from 'react-hot-loader'
 import Grid from '@material-ui/core/Grid';
+
 import NavbarAuthenticated from './components/universal/NavbarAuthenticated/NavbarAuthenticated';
 import NavbarUnauthenticated from './components/universal/NavbarUnauthenticated/NavbarUnauthenticated';
 import Signin from './components/auth/Signin';
 import ForgotPassword from './components/auth/ForgotPassword';
 import requireAuth from './components/hoc/RequireAuth';
+import CourseForm from './components/courses/CourseForm/CourseForm';
 
 import noRequireAuth from './components/hoc/noRequireAuth';
 import Dashboard from './pages/Dashboard';
+import Courses from './pages/Courses/Courses';
 
 
 const theme = createMuiTheme({
@@ -95,6 +98,8 @@ const App = ({ authenticated }) => {
             <>
               <div className={classes.toolbar} />
               <Route exact path="/" component={requireAuth(Dashboard, ['admin'])} />
+              <Route exact path="/courses" component={requireAuth(Courses, ['admin'])} />
+              <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin'])} />
             </>
           )}
         </main>

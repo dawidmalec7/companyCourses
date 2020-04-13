@@ -17,6 +17,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -138,6 +139,7 @@ const NavbarAuthenticated = ({ signOut, history }) => {
             <Divider />
             <List>
               <ListItemLink icon={<DashboardIcon />} primary="Dashboard" to="/" />
+              <ListItemLink icon={<VideoLibraryIcon />} primary="Courses" to="/courses" />
               <ListItem button onClick={() => signOut(history)}>
                 <ListItemIcon>
                   <ExitToAppIcon />
