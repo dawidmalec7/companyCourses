@@ -27,6 +27,7 @@ module.exports = {
     "react/jsx-props-no-spreading": 0,
     "react/forbid-prop-types": 0,
     "linebreak-style": [0, "error", "windows"],
+    "react/state-in-constructor": [0, "always"]
   },
   parser: "babel-eslint"
 };

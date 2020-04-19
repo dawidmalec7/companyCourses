@@ -19,7 +19,6 @@ import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import VideoLabelIcon from '@material-ui/icons/VideoLabel';
 import { Editor } from 'react-draft-wysiwyg';
-import { signInAction } from '../../../actions/auth';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -28,7 +27,12 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CloseIcon from '@material-ui/icons/Close';
 import { IconButton } from '@material-ui/core';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FilledInput from '@material-ui/core/FilledInput';
+import { makeStyles } from '@material-ui/core/styles';
 import css from './CourseForm.module.scss';
+import Video from './Fields/Video.jsx';
 
 const courseTypes = [
   { type: 'quiz' },
@@ -49,9 +53,26 @@ const TextEditor = () => (
     editorClassName={css.editor}
   />
 )
+
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  courseItemButton: {
+    margin: `${theme.spacing(2)}px 0`,
+  },
+  flexCenter: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+}));
+
 const CourseForm = () => {
   const { register, handleSubmit } = useForm();
   const [courseItems, setCourseItems] = React.useState([]);
+  const classes = useStyles();
 
   // Todo: Przenieść do osobnego komponentu PopOver
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -75,18 +96,18 @@ const CourseForm = () => {
     const courseItemsFiltered = courseItems.filter((item) => courseType !== item);
     setCourseItems(courseItemsFiltered);
   }
-  console.log(courseItems);
+
   return (
     <div>
       <form>
         <Container maxWidth="lg">
-          <div>
-            <TextField
-              inputRef={register}
-              label="Course Name"
-              name="course_name"
+          <FormControl fullWidth className={classes.margin} variant="filled">
+            <InputLabel htmlFor="filled-adornment-amount">Course</InputLabel>
+            <FilledInput
+              id="filled-adornment-amount"
+              value="test"
             />
-          </div>
+          </FormControl>
           {/* Courses Items */}
           <div className="course-items">
             {courseItems.map(((item) => {
@@ -99,7 +120,7 @@ const CourseForm = () => {
                   CourseItemComponent = TextEditor;
                   break;
                 case 'video':
-                  CourseItemComponent = TextEditor;
+                  CourseItemComponent = Video;
                   break;
                 default:
                   return null;
@@ -111,10 +132,12 @@ const CourseForm = () => {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
-                    <Typography>{item}</Typography>
-                    <IconButton component="span" onClick={() => removeCourseItem(item)}>
-                      <CloseIcon />
-                    </IconButton>
+                    <div className={classes.flexCenter}>
+                      <IconButton component="span" onClick={() => removeCourseItem(item)}>
+                        <CloseIcon />
+                      </IconButton>
+                      <Typography>{item}</Typography>
+                    </div>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <CourseItemComponent />
@@ -124,7 +147,7 @@ const CourseForm = () => {
             }))}
           </div>
           <div>
-            <Button aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
+            <Button className={classes.courseItemButton} variant="contained" color="primary" onClick={handleClick}>
               Add Course Item
             </Button>
             <Popover

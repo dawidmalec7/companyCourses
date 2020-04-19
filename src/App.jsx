@@ -50,6 +50,19 @@ const theme = createMuiTheme({
       disableUnderline: true,
     },
   },
+  overrides: {
+    MuiInputBase: {
+      input: {
+        backgroundColor: 'white',
+        borderRadius: '4px',
+      },
+    },
+    MuiInputLabel: {
+      root: {
+        zIndex: 250,
+      },
+    },
+  },
 
 })
 
@@ -68,8 +81,11 @@ const App = ({ authenticated }) => {
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
     },
-    content: {
+    main: {
       flexGrow: 1,
+    },
+    content: {
+      padding: '24px 0',
     },
   }));
   const classes = useStyles();
@@ -79,7 +95,7 @@ const App = ({ authenticated }) => {
       <div className={classes.root}>
         <CssBaseline />
         { authenticated && <NavbarAuthenticated /> }
-        <main className={classes.content}>
+        <main className={classes.main}>
           {!authenticated && (
             <Grid
               container
@@ -97,9 +113,11 @@ const App = ({ authenticated }) => {
 
           <>
             <div className={classes.toolbar} />
-            <Route exact path="/" component={requireAuth(Dashboard, ['admin'])} />
-            <Route exact path="/courses" component={requireAuth(Courses, ['admin'])} />
-            <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin'])} />
+            <div className={classes.content}>
+              <Route exact path="/" component={requireAuth(Dashboard, ['admin'])} />
+              <Route exact path="/courses" component={requireAuth(Courses, ['admin'])} />
+              <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin'])} />
+            </div>
           </>
         </main>
       </div>
