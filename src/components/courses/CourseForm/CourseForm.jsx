@@ -34,6 +34,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import css from './CourseForm.module.scss';
 import Video from './Fields/Video.jsx';
 
+import Quiz from './Quiz/Quiz';
+
 const courseTypes = [
   { type: 'quiz' },
   { type: 'text' },
@@ -114,7 +116,7 @@ const CourseForm = () => {
               let CourseItemComponent = null;
               switch (item) {
                 case 'quiz':
-                  CourseItemComponent = TextEditor;
+                  CourseItemComponent = Quiz;
                   break;
                 case 'text':
                   CourseItemComponent = TextEditor;
