@@ -94,14 +94,13 @@ const App = ({ authenticated }) => {
               <Route path="/forgot-password" component={noRequireAuth(ForgotPassword)} />
             </Grid>
           )}
-          {authenticated && (
-            <>
-              <div className={classes.toolbar} />
-              <Route exact path="/" component={requireAuth(Dashboard, ['admin'])} />
-              <Route exact path="/courses" component={requireAuth(Courses, ['admin'])} />
-              <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin'])} />
-            </>
-          )}
+
+          <>
+            <div className={classes.toolbar} />
+            <Route exact path="/" component={requireAuth(Dashboard, ['admin'])} />
+            <Route exact path="/courses" component={requireAuth(Courses, ['admin'])} />
+            <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin'])} />
+          </>
         </main>
       </div>
     </MuiThemeProvider>

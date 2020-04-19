@@ -20,7 +20,6 @@ import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import VideoLabelIcon from '@material-ui/icons/VideoLabel';
 import { Editor } from 'react-draft-wysiwyg';
 import { signInAction } from '../../../actions/auth';
-import AuthButton from '../../UI/AuthButton/AuthButton';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -29,6 +28,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CloseIcon from '@material-ui/icons/Close';
 import { IconButton } from '@material-ui/core';
+import css from './CourseForm.module.scss';
 
 const courseTypes = [
   { type: 'quiz' },
@@ -46,18 +46,13 @@ const TextEditor = () => (
   <Editor
     toolbarClassName="toolbarClassName"
     wrapperClassName="wrapperClassName"
-    editorClassName="editorClassName"
+    editorClassName={css.editor}
   />
 )
-const CourseForm = ({
-  signIn, history,
-}) => {
+const CourseForm = () => {
   const { register, handleSubmit } = useForm();
   const [courseItems, setCourseItems] = React.useState([]);
 
-  const onSubmit = (values) => {
-    signIn(values, history);
-  };
   // Todo: Przenieść do osobnego komponentu PopOver
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
@@ -83,7 +78,7 @@ const CourseForm = ({
   console.log(courseItems);
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <Container maxWidth="lg">
           <div>
             <TextField
@@ -170,13 +165,6 @@ const CourseForm = ({
   );
 }
 
-CourseForm.propTypes = {
-  signIn: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
-};
+CourseForm.propTypes = {};
 
-const mapStateToProps = (state) => ({ errorMessage: state.auth.error });
-
-export default connect(mapStateToProps, { signIn: signInAction })(
-  CourseForm,
-);
+export default connect(() => {})(CourseForm);

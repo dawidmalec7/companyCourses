@@ -10,10 +10,12 @@ export default function (ComposedComponent, authorize) {
         authenticated, history, role,
       } = this.props;
 
-      if (!authenticated) { history.push('/signin'); }
-
-      const isAuthorized = authorize.includes(role);
-      if (!isAuthorized) { history.push('/404'); }
+      if (!authenticated) {
+        history.push('/signin');
+      } else {
+        const isAuthorized = authorize.includes(role);
+        if (!isAuthorized) { history.push('/404'); }
+      }
     }
 
     // eslint-disable-next-line camelcase
@@ -22,11 +24,12 @@ export default function (ComposedComponent, authorize) {
         authenticated, history, role,
       } = this.props;
 
-      if (!authenticated) { history.push('/signin'); }
-
-      const isAuthorized = authorize.includes(role);
-
-      if (!isAuthorized) { history.push('/404'); }
+      if (!authenticated) {
+        history.push('/signin');
+      } else {
+        const isAuthorized = authorize.includes(role);
+        if (!isAuthorized) { history.push('/404'); }
+      }
     }
 
     render() {
