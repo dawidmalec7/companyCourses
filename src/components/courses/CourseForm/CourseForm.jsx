@@ -30,6 +30,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import { IconButton } from '@material-ui/core';
 import css from './CourseForm.module.scss';
 
+import Quiz from './Quiz/Quiz';
+
 const courseTypes = [
   { type: 'quiz' },
   { type: 'text' },
@@ -93,7 +95,7 @@ const CourseForm = () => {
               let CourseItemComponent = null;
               switch (item) {
                 case 'quiz':
-                  CourseItemComponent = TextEditor;
+                  CourseItemComponent = Quiz;
                   break;
                 case 'text':
                   CourseItemComponent = TextEditor;
