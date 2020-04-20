@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import { signInAction } from '../../actions/auth';
 import css from './Signin.module.scss';
-import AuthButton from '../UI/AuthButton/AuthButton';
+import AuthButton from '../UI/Buttons/AuthButton/AuthButton';
 
 const SignInForm = ({
   signIn, history, errorMessage,

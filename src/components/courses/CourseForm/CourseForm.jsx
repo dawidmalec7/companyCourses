@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form'
 
-import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,6 +26,7 @@ import css from './CourseForm.module.scss';
 import Video from './Video/Video';
 import Quiz from './Quiz/Quiz';
 import CoursePanel from './CoursePanel/CoursePanel';
+import TextEditor from './TextEditor/TextEditor';
 import PopoverWithButton from '../../UI/PopoverWithButton/PopoverWithButton'
 
 const courseTypes = [
@@ -40,14 +40,6 @@ const courseTypesIcons = {
   video: VideoLabelIcon,
   quiz: QuestionAnswerIcon,
 }
-
-const TextEditor = () => (
-  <Editor
-    toolbarClassName="toolbarClassName"
-    wrapperClassName="wrapperClassName"
-    editorClassName={css.editor}
-  />
-)
 
 const CourseItemsList = ({ items, removePanel }) => (
   items.map(((item) => {

@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { useForm } from 'react-hook-form'
 import css from './Signin.module.scss';
-import AuthButton from '../UI/AuthButton/AuthButton';
+import AuthButton from '../UI/Buttons/AuthButton/AuthButton';
 
 const ForgotPassword = ({ errorMessage }) => {
   const { register, handleSubmit } = useForm();
