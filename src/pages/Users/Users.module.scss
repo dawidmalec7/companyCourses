@@ -1,0 +1,15 @@
+@import "../../config/scss/variables.scss";
+
+.NavLink {
+    text-decoration: none;
+    text-transform: capitalize;
+    font-family: $regularBold;
+    padding: 0 20px;
+    font-size: 32px;
+    color: #344955;
+    font-weight: 900;
+}
+
+.isActive {
+  color: $primary !important;
+}

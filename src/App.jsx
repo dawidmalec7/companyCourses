@@ -20,6 +20,8 @@ import CourseForm from './components/courses/CourseForm/CourseForm';
 import noRequireAuth from './components/hoc/noRequireAuth';
 import Dashboard from './pages/Dashboard';
 import Courses from './pages/Courses/Courses';
+import Users from './pages/Users/Users';
+
 
 
 const theme = createMuiTheme({
@@ -116,6 +118,7 @@ const App = ({ authenticated }) => {
             <div className={classes.content}>
               <Route exact path="/" component={requireAuth(Dashboard, ['admin'])} />
               <Route exact path="/courses" component={requireAuth(Courses, ['admin'])} />
+              <Route exact path="/users" component={requireAuth(Users, ['admin'])} />
               <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin'])} />
             </div>
           </>
