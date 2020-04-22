@@ -24,6 +24,7 @@ import Users from './pages/Users/Users';
 
 
 
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -118,7 +119,7 @@ const App = ({ authenticated }) => {
             <div className={classes.content}>
               <Route exact path="/" component={requireAuth(Dashboard, ['admin'])} />
               <Route exact path="/courses" component={requireAuth(Courses, ['admin'])} />
-              <Route exact path="/users" component={requireAuth(Users, ['admin'])} />
+              <Route path="/users" component={requireAuth(Users, ['admin'])} />
               <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin'])} />
             </div>
           </>

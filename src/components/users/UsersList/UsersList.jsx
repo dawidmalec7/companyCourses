@@ -3,6 +3,7 @@ import css from './UsersList.module.scss';
 
 import Grid from '@material-ui/core/Grid';
 import EditIcon from '@material-ui/icons/Edit';
+import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -18,42 +19,49 @@ const users = [
     name: 'Lukasz',
     surname: 'Sroga',
     email: 'a@b.com',
+    group: 'Admin',
   },
   {
     id: 2,
     name: 'Lukasz',
     surname: 'Sroga',
     email: 'a@b.com',
+    group: 'User',
   },
   {
     id: 3,
     name: 'Lukasz',
     surname: 'Sroga',
     email: 'a@b.com',
+    group: 'User',
   },
   {
     id: 4,
     name: 'Lukasz',
     surname: 'Sroga',
     email: 'a@b.com',
+    group: 'User',
   },
   {
     id: 5,
     name: 'Lukasz',
     surname: 'Sroga',
     email: 'a@b.com',
+    group: 'User',
   },
   {
     id: 6,
     name: 'Lukasz',
     surname: 'Sroga',
     email: 'a@b.com',
+    group: 'User',
   },
 ]
 
 const UsersList = () => (
   <Grid item md={10}>
     <TableContainer className={css.table}>
+    <SmallButton className={css.addUserButton}>add new user</SmallButton>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -61,6 +69,7 @@ const UsersList = () => (
             <TableCell className={css.tableHeaderCell}>Name</TableCell>
             <TableCell className={css.tableHeaderCell}>Surname</TableCell>
             <TableCell className={css.tableHeaderCell}>E-Mail</TableCell>
+            <TableCell className={css.tableHeaderCell}>Group</TableCell>
             <TableCell className={css.tableHeaderCell}>Edit</TableCell>
           </TableRow>
         </TableHead>
@@ -71,7 +80,8 @@ const UsersList = () => (
               <TableCell className={css.tableBodyCell}>{user.name}</TableCell>
               <TableCell className={css.tableBodyCell}>{user.surname}</TableCell>
               <TableCell className={css.tableBodyCell}>{user.email}</TableCell>
-              <TableCell className={css.tableBodyCell}><EditIcon /></TableCell>
+              <TableCell className={css.tableBodyCell}>{user.group}</TableCell>
+              <TableCell className={css.tableBodyCell}><EditIcon className={css.editIcon}/></TableCell>
             </TableRow>
           ))}
         </TableBody>

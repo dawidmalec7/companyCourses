@@ -10,7 +10,7 @@ import Settings from '../../components/users/Settings/Settings';
 const links = [
   {
     text: 'Users',
-    url: '/users',
+    url: '/users/userlist',
   },
   {
     text: 'Groups',
@@ -39,9 +39,9 @@ const Users = () => (
             ))}
        </Grid>
        <Grid container spacing={12}>
-          <Route exact path="/users" component={UsersList} />
-          <Route path="/users/groups" component={Groups} />
-          <Route path="/users/settings" component={Settings} />
+          <Route exact path="/users/userlist" component={UsersList} />
+          <Route exact path="/users/groups" component={Groups} />
+          <Route exact path="/users/settings" component={Settings} />
        </Grid>
     </Container>
   )
