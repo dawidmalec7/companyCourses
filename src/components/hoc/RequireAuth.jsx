@@ -6,20 +6,15 @@ export default function (ComposedComponent, authorize) {
   class Authentication extends Component {
     // eslint-disable-next-line camelcase
     UNSAFE_componentWillMount() {
-      const {
-        authenticated, history, role,
-      } = this.props;
-
-      if (!authenticated) {
-        history.push('/signin');
-      } else {
-        const isAuthorized = authorize.includes(role);
-        if (!isAuthorized) { history.push('/404'); }
-      }
+      this.handleAuth();
     }
 
     // eslint-disable-next-line camelcase
     UNSAFE_componentWillUpdate() {
+      this.handleAuth();
+    }
+
+    handleAuth() {
       const {
         authenticated, history, role,
       } = this.props;
@@ -27,7 +22,8 @@ export default function (ComposedComponent, authorize) {
       if (!authenticated) {
         history.push('/signin');
       } else {
-        const isAuthorized = authorize.includes(role);
+        const roleVar = typeof (role) !== 'undefined' ? role : localStorage.getItem('role')
+        const isAuthorized = authorize.includes(roleVar);
         if (!isAuthorized) { history.push('/404'); }
       }
     }

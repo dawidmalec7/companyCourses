@@ -23,8 +23,6 @@ import Courses from './pages/Courses/Courses';
 import Users from './pages/Users/Users';
 
 
-
-
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -117,10 +115,10 @@ const App = ({ authenticated }) => {
           <>
             <div className={classes.toolbar} />
             <div className={classes.content}>
-              <Route exact path="/" component={requireAuth(Dashboard, ['admin'])} />
-              <Route exact path="/courses" component={requireAuth(Courses, ['admin'])} />
-              <Route path="/users" component={requireAuth(Users, ['admin'])} />
-              <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin'])} />
+              <Route exact path="/" component={requireAuth(Dashboard, ['admin', 'manager', 'standard'])} />
+              <Route exact path="/courses" component={requireAuth(Courses, ['admin', 'manager', 'standard'])} />
+              <Route path="/users" component={requireAuth(Users, ['admin', 'manager'])} />
+              <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin', 'manager'])} />
             </div>
           </>
         </main>

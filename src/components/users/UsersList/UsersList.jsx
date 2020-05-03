@@ -1,9 +1,7 @@
 import React from 'react';
-import css from './UsersList.module.scss';
 
 import Grid from '@material-ui/core/Grid';
 import EditIcon from '@material-ui/icons/Edit';
-import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +9,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
+import css from './UsersList.module.scss';
 
 
 const users = [
@@ -61,7 +61,7 @@ const users = [
 const UsersList = () => (
   <Grid item md={10}>
     <TableContainer className={css.table}>
-    <SmallButton className={css.addUserButton}>add new user</SmallButton>
+      <SmallButton className={css.addUserButton}>add new user</SmallButton>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -81,7 +81,7 @@ const UsersList = () => (
               <TableCell className={css.tableBodyCell}>{user.surname}</TableCell>
               <TableCell className={css.tableBodyCell}>{user.email}</TableCell>
               <TableCell className={css.tableBodyCell}>{user.group}</TableCell>
-              <TableCell className={css.tableBodyCell}><EditIcon className={css.editIcon}/></TableCell>
+              <TableCell className={css.tableBodyCell}><EditIcon className={css.editIcon} /></TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -89,5 +89,5 @@ const UsersList = () => (
     </TableContainer>
   </Grid>
 )
-  
-  export default UsersList;
+
+export default UsersList;

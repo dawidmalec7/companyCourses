@@ -14,12 +14,12 @@ import css from './Signin.module.scss';
 import AuthButton from '../UI/Buttons/AuthButton/AuthButton';
 
 const SignInForm = ({
-  signIn, history, errorMessage,
+  signIn, errorMessage,
 }) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (values) => {
-    signIn(values, history);
+    signIn(values);
   };
 
   const errorMessageEl = () => {
@@ -61,6 +61,7 @@ const SignInForm = ({
             />
             <TextField
               inputRef={register}
+              type="password"
               label="Password"
               InputLabelProps={{
                 className: clsx(css.TextUppercase, css.inputText),
@@ -80,7 +81,6 @@ const SignInForm = ({
 
 SignInForm.propTypes = {
   signIn: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
 };
 SignInForm.defaultProps = {

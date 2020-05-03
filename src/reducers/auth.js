@@ -2,7 +2,7 @@ import {
   AUTHENTICATED,
   UNAUTHENTICATED,
   AUTHENTICATION_ERROR,
-} from '../actions/auth';
+} from '../actions/types/auth';
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -10,16 +10,18 @@ export default function (state = {}, action) {
       return {
         ...state,
         authenticated: true,
-        role: action.payload,
+        error: '',
+        role: action.role,
       };
     case UNAUTHENTICATED:
       return {
         ...state,
         authenticated: false,
+        role: '',
       };
     case AUTHENTICATION_ERROR:
       return {
-        ...state, error: action.payload,
+        ...state, error: action.error,
       };
     default:
       return state;

@@ -1,31 +1,44 @@
 import axios from 'axios';
+import history from '../config/js/history';
+import {
+  AUTHENTICATED,
+  UNAUTHENTICATED,
+  AUTHENTICATION_ERROR,
+} from './types/auth';
 
-export const AUTHENTICATED = 'authenticated_user';
-export const UNAUTHENTICATED = 'unauthenticated_user';
-export const AUTHENTICATION_ERROR = 'authentication_error';
-
-const URL = 'https://reqres.in';
-
-export function signInAction({ email, password }, history) {
+export function signInAction({ email, password }) {
   return async (dispatch) => {
-    try {
-      const res = await axios.post(`${URL}/api/login`, { email, password });
+    function onSuccess(response) {
+      const data = response.data.data.attributes;
+      const token = data.access_token;
+      const role = data.logged_user.data.attributes.scope;
       dispatch({
         type: AUTHENTICATED,
-        payload: 'admin',
+        role,
       });
-      localStorage.setItem('user', res.data.token);
+      localStorage.setItem('user', token);
+      localStorage.setItem('role', role);
       history.push('/');
-    } catch (error) {
+    }
+
+    function onError(error) {
       dispatch({
         type: AUTHENTICATION_ERROR,
-        payload: 'Invalid email or password',
+        error: error.message,
       });
+    }
+
+
+    try {
+      const res = await axios.post('/oauth/token', { username: email, password, grant_type: 'password' });
+      return onSuccess(res);
+    } catch (error) {
+      return onError(error);
     }
   };
 }
 
-export function signOutAction(history) {
+export function signOutAction() {
   localStorage.clear();
   history.push('/signin');
   return {

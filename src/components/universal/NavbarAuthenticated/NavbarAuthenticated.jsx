@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
@@ -27,7 +26,7 @@ import ListItemLink from '../../UI/ListItemLink/ListItemLink';
 
 import { signOutAction } from '../../../actions/auth';
 
-const NavbarAuthenticated = ({ signOut, history }) => {
+const NavbarAuthenticated = ({ signOut }) => {
   const drawerWidth = 240;
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -142,7 +141,7 @@ const NavbarAuthenticated = ({ signOut, history }) => {
               <ListItemLink icon={<DashboardIcon />} primary="Dashboard" to="/" />
               <ListItemLink icon={<VideoLibraryIcon />} primary="Courses" to="/courses" />
               <ListItemLink icon={<GroupIcon />} primary="Users" to="/users" />
-              <ListItem button onClick={() => signOut(history)}>
+              <ListItem button onClick={() => signOut()}>
                 <ListItemIcon>
                   <ExitToAppIcon />
                 </ListItemIcon>
@@ -158,11 +157,10 @@ const NavbarAuthenticated = ({ signOut, history }) => {
 
 NavbarAuthenticated.propTypes = {
   signOut: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  signOut: (history) => dispatch(signOutAction(history)),
+  signOut: () => dispatch(signOutAction()),
 })
 
-export default connect(() => {}, mapDispatchToProps)(withRouter(NavbarAuthenticated));
+export default connect(() => {}, mapDispatchToProps)(NavbarAuthenticated);
