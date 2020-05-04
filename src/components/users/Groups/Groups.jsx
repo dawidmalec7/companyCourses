@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import EditIcon from '@material-ui/icons/Edit';
@@ -13,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import css from './Groups.module.scss';
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 
-import { fetchGroups } from '../../../actions/groups';
+import { fetchGroups} from '../../../actions/groups';
 
 
 const Groups = ({ getGroups, groups: { isLoading, data = [] } }) => {
@@ -26,7 +27,11 @@ const Groups = ({ getGroups, groups: { isLoading, data = [] } }) => {
   return (
     <Grid item md={10}>
       <TableContainer className={css.table}>
-        <SmallButton className={css.addGroupButton}>add new group</SmallButton>
+        <NavLink 
+          to={'/users/groups/addnewgroup'} 
+          className={css.addNewGroupLink}>
+            <SmallButton className={css.addGroupButton}>add new group</SmallButton>
+         </NavLink>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
