@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 
 import Table from '@material-ui/core/Table';
@@ -13,18 +14,19 @@ import TableRow from '@material-ui/core/TableRow';
 import css from './Groups.module.scss';
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 
-import { fetchGroups } from '../../../actions/groups';
+import { fetchGroups, deleteGroup } from '../../../actions/groups';
 
 
-const Groups = ({ getGroups, groups: { isLoading, data = [] } }) => {
+const Groups = ({ getGroups, removeGroup, groups: { isLoading, data = [], error } }) => {
   useEffect(() => {
-    getGroups()
-  });
-
+    getGroups();
+  }, []);
+  console.log(isLoading);
   if (isLoading) { return (<div>Loading...</div>); }
 
   return (
     <Grid item md={10}>
+      {error && <div>{error}</div>}
       <TableContainer className={css.table}>
         <SmallButton className={css.addGroupButton}>add new group</SmallButton>
         <Table aria-label="simple table">
@@ -33,6 +35,7 @@ const Groups = ({ getGroups, groups: { isLoading, data = [] } }) => {
               <TableCell className={css.tableHeaderCell}>ID</TableCell>
               <TableCell className={css.tableHeaderCell}>Group</TableCell>
               <TableCell className={css.tableHeaderCell}>Edit</TableCell>
+              <TableCell className={css.tableHeaderCell}>Delete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -40,7 +43,10 @@ const Groups = ({ getGroups, groups: { isLoading, data = [] } }) => {
               <TableRow className={css.tableRow} key={group.id}>
                 <TableCell className={css.tableBodyCell} align="left">{group.id}</TableCell>
                 <TableCell className={css.tableBodyCell}>{group.attributes.name}</TableCell>
-                <TableCell className={css.tableBodyCell}><EditIcon className={css.editIcon} /></TableCell>
+                <TableCell className={css.tableBodyCell}><EditIcon className={css.Icon} /></TableCell>
+                <TableCell className={css.tableBodyCell}>
+                  <DeleteIcon className={css.Icon} onClick={() => removeGroup(group.id)} />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -53,11 +59,13 @@ const Groups = ({ getGroups, groups: { isLoading, data = [] } }) => {
 const mapStateToProps = (state) => ({ groups: state.groups });
 const mapDispatchToProps = (dispatch) => ({
   getGroups: () => dispatch(fetchGroups()),
+  removeGroup: (groupId) => dispatch(deleteGroup(groupId)),
 })
 
 Groups.propTypes = {
   groups: PropTypes.object.isRequired,
   getGroups: PropTypes.func.isRequired,
+  removeGroup: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(

@@ -28,8 +28,9 @@
         color: $secondary !important;
         border: none !important;
 
-        .editIcon:hover {
+        .Icon:hover {
             color: $primary !important;
+            cursor: pointer;
         }
     }
 }

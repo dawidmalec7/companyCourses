@@ -7,6 +7,9 @@ import {
   FETCH_GROUPS_REQUEST,
   FETCH_GROUPS_SUCCESS,
   FETCH_GROUPS_FAILURE,
+  DELETE_GROUP_REQUEST,
+  DELETE_GROUP_SUCCESS,
+  DELETE_GROUP_FAILURE,
 } from './types/groups';
 
 
@@ -19,48 +22,13 @@ export const addGroup = (groupData) => ({
 
 export const fetchGroups = () => ({
   types: [FETCH_GROUPS_REQUEST, FETCH_GROUPS_SUCCESS, FETCH_GROUPS_FAILURE],
-  shouldCallAPI: (state) => typeof state.groups.data === 'undefined',
+  shouldCallAPI: (state) => state.groups.data.length === 0,
   callAPI: () => axios.get('/api/v1/groups'),
   payload: {},
 })
 
-// export function signInAction({ email, password }) {
-//   return async (dispatch) => {
-//     function onSuccess(response) {
-//       const data = response.data.data.attributes;
-//       const token = data.access_token;
-//       const role = data.logged_user.data.attributes.scope;
-//       dispatch({
-//         type: AUTHENTICATED,
-//         role,
-//       });
-//       localStorage.setItem('user', token);
-//       localStorage.setItem('role', role);
-//       history.push('/');
-//     }
-
-//     function onError(error) {
-//       dispatch({
-//         type: AUTHENTICATION_ERROR,
-//         error: error.message,
-//       });
-//     }
-
-
-//     try {
-//       const res = await axios.post('/oauth/token',
-// { username: email, password, grant_type: 'password' });
-//       return onSuccess(res);
-//     } catch (error) {
-//       return onError(error);
-//     }
-//   };
-// }
-
-// export function signOutAction() {
-//   localStorage.clear();
-//   history.push('/signin');
-//   return {
-//     type: UNAUTHENTICATED,
-//   };
-// }
+export const deleteGroup = (groupId) => ({
+  types: [DELETE_GROUP_REQUEST, DELETE_GROUP_SUCCESS, DELETE_GROUP_FAILURE],
+  callAPI: () => axios.delete(`/api/v1/groups/${groupId}`),
+  payload: { groupId },
+})
