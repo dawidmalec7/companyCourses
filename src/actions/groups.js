@@ -15,8 +15,7 @@ import {
 
 export const addGroup = (groupData) => ({
   types: [ADD_GROUP_REQUEST, ADD_GROUP_SUCCESS, ADD_GROUP_FAILURE],
-  shouldCallAPI: (state) => !state.groups,
-  callApi: () => axios.create('/api/v1/groups', groupData),
+  callAPI: () => axios.post('/api/v1/groups', groupData),
   payload: {},
 })
 

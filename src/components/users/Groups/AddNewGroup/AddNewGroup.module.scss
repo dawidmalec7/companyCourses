@@ -2,17 +2,31 @@
 
 .grid {
     margin-top: 80px !important;
-}
 
-.backButton {
-    padding: 10px !important;
-    margin-bottom: 10px;
-    color: $primary !important;
-    font-family: $regularBold !important;
-    border: 2px solid $primary !important;
-    font-weight: 900 !important;
-}
+    .backButton {
+        padding: 10px !important;
+        margin-bottom: 10px;
+        color: $primary !important;
+        font-family: $regularBold !important;
+        border: 2px solid $primary !important;
+        font-weight: 900 !important;
+    }
 
-.backLink {
-    text-decoration: none;
+    .addButton {
+        padding: 10px !important;
+        margin-bottom: 10px;
+        color: $primary !important;
+        font-family: $regularBold !important;
+        border: 2px solid $primary !important;
+        font-weight: 900 !important;
+    }
+    
+    .backLink {
+        text-decoration: none;
+    }
+
+    .input {
+        margin: 20px;
+        width: 200px;
+    }
 }

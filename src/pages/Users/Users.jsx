@@ -40,7 +40,7 @@ const Users = () => (
       ))}
     </Grid>
     <Grid container spacing={12}>
-      <Route exact path="/users" component={UsersList} />
+      <Route exact path="/users/userlist" component={UsersList} />
       <Route exact path="/users/groups" component={Groups} />
       <Route exact path="/users/groups/addnewgroup" component={AddNewGroup} />
       <Route exact path="/users/settings" component={Settings} />
