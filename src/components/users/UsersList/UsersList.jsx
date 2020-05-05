@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,6 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 import css from './UsersList.module.scss';
 
+import { fetchUsers } from '../../../actions/users';
 
 const users = [
   {
@@ -58,36 +62,54 @@ const users = [
   },
 ]
 
-const UsersList = () => (
-  <Grid item md={10}>
-    <TableContainer className={css.table}>
-      <SmallButton className={css.addUserButton}>add new user</SmallButton>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell className={css.tableHeaderCell}>ID</TableCell>
-            <TableCell className={css.tableHeaderCell}>Name</TableCell>
-            <TableCell className={css.tableHeaderCell}>Surname</TableCell>
-            <TableCell className={css.tableHeaderCell}>E-Mail</TableCell>
-            <TableCell className={css.tableHeaderCell}>Group</TableCell>
-            <TableCell className={css.tableHeaderCell}>Edit</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map((user) => (
-            <TableRow className={css.tableRow} key={user.id}>
-              <TableCell className={css.tableBodyCell} align="left">{user.id}</TableCell>
-              <TableCell className={css.tableBodyCell}>{user.name}</TableCell>
-              <TableCell className={css.tableBodyCell}>{user.surname}</TableCell>
-              <TableCell className={css.tableBodyCell}>{user.email}</TableCell>
-              <TableCell className={css.tableBodyCell}>{user.group}</TableCell>
-              <TableCell className={css.tableBodyCell}><EditIcon className={css.editIcon} /></TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  </Grid>
-)
+const UsersList = ({ getUsers, users: { isLoading, data = [], error } }) => {
+  useEffect(() => {
+    getUsers();
+  }, []);
+  console.log(isLoading);
+  if (isLoading) { return (<div>Loading...</div>); }
 
-export default UsersList;
+  return(
+    <Grid item md={10}>
+      <TableContainer className={css.table}>
+        <SmallButton className={css.addUserButton}>add new user</SmallButton>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell className={css.tableHeaderCell}>ID</TableCell>
+              <TableCell className={css.tableHeaderCell}>E-Mail</TableCell>
+              <TableCell className={css.tableHeaderCell}>Scope</TableCell>
+              <TableCell className={css.tableHeaderCell}>Edit</TableCell>
+              <TableCell className={css.tableHeaderCell}>Delete</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((user) => (
+              <TableRow className={css.tableRow} key={user.id}>
+                <TableCell className={css.tableBodyCell} align="left">{user.id}</TableCell>
+                <TableCell className={css.tableBodyCell}>{user.attributes.email}</TableCell>
+                <TableCell className={css.tableBodyCell}>{user.attributes.scope}</TableCell>
+                <TableCell className={css.tableBodyCell}><EditIcon className={css.icon} /></TableCell>
+                <TableCell className={css.tableBodyCell}><DeleteIcon className={css.icon} /></TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Grid>
+  )}
+
+const mapStateToProps = (state) => ({ users: state.users });
+const mapDispatchToProps = (dispatch) => ({
+  getUsers: () => dispatch(fetchUsers()),
+})
+
+UsersList.propTypes = {
+  users: PropTypes.object.isRequired,
+  getUsers: PropTypes.func.isRequired,
+};
+
+
+  export default connect(mapStateToProps, mapDispatchToProps)(
+    UsersList,
+  );
