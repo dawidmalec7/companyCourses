@@ -5,9 +5,6 @@ import { useForm } from 'react-hook-form'
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
 
 import SmallButton from '../../../UI/Buttons/SmallButton/SmallButton';
 import css from './AddNewGroup.module.scss';
@@ -15,10 +12,17 @@ import { addGroup } from '../../../../actions/groups';
 
 const AddNewGroup = ({ addSingleGroup }) => {
 
-  const testData = {
-    "name": "testowy name",
-    "description": "description",
-    "user_ids": [1,2,3]
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = data => {
+    // To jest mocno testowe
+    let testUser_ids = {};
+    testUser_ids = data;
+    testUser_ids.user_ids = [1,2,3];
+    addSingleGroup(testUser_ids);
+    //Przeładowuję bo grupy się nie ładują bez tego
+    alert("The group has been added!")
+    location.reload();
   }
 
   return(
@@ -28,20 +32,26 @@ const AddNewGroup = ({ addSingleGroup }) => {
           to="/users/groups"
           className={css.backLink}
         >
-          <SmallButton className={css.backButton}>back</SmallButton>
+          <SmallButton className={css.smallButton}>back</SmallButton>
         </NavLink>
       </Grid>
       <Grid className={css.grid} item md={10}>
-        <form onSubmit={() => addSingleGroup(testData)} >
-          <label>
-            Name
-            <Input className={css.input} id="group-name" />
-          </label>
-          <label>
-            Description
-            <Input className={css.input} id="group-description" />
-          </label>
-          <SmallButton type="submit" className={css.addButton}>Add</SmallButton>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+                inputRef={register({ required: true })}
+                label="Name"
+                name="name"
+                className={css.TextField}
+                id="name"
+            />
+            <TextField
+                inputRef={register({ required: true })}
+                label="Description"
+                name="description"
+                className={css.TextField}
+                id="description"
+            />
+          <button type="submit" className={css.smallButton} >Dodaj</button>
         </form>
       </Grid>
     </>
