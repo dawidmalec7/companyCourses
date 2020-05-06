@@ -21,7 +21,6 @@ const AddNewGroup = ({ addSingleGroup }) => {
     testUser_ids.user_ids = [1,2,3];
     addSingleGroup(testUser_ids);
     //Przeładowuję bo grupy się nie ładują bez tego
-    alert("The group has been added!")
     location.reload();
   }
 

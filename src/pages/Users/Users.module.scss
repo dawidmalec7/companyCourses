@@ -3,7 +3,8 @@
 .NavLink {
     text-decoration: none;
     text-transform: capitalize;
-    font-family: $regularBold;
+    font-family: $regularBold, $regular !important;
+    font-weight: 900 !important;
     padding: 0 20px;
     font-size: 32px;
     color: #344955;

@@ -1,0 +1,38 @@
+@import "../../../../config/scss/variables.scss";
+
+.grid {
+    margin-top: 80px !important;
+
+    .disabledForTest {
+        display: none !important;
+    }
+
+    .smallButton {
+        width: 100px;
+        padding: 10px !important;
+        margin-bottom: 10px;
+        color: $primary !important;
+        font-family: $regularBold !important;
+        border: 2px solid $primary !important;
+        font-weight: 900 !important;
+        background: none;
+    }
+    
+    .backLink {
+        text-decoration: none;
+    }
+
+    form {
+        border: 2px solid $primary;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        .TextField {
+            margin: 15px;
+            width: 80%;
+        }
+    }
+}
