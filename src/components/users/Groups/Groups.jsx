@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import EditIcon from '@material-ui/icons/Edit';
@@ -15,19 +15,32 @@ import TableRow from '@material-ui/core/TableRow';
 import css from './Groups.module.scss';
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 
-import { fetchGroups, deleteGroup } from '../../../actions/groups';
+import { fetchGroups, deleteGroup, editGroup } from '../../../actions/groups';
 
 
-const Groups = ({ getGroups, removeGroup, groups: { isLoading, data = [], error } }) => {
+const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, data = [], error } }) => {
   useEffect(() => {
     getGroups();
   }, []);
   console.log(isLoading);
+
+  const testData =
+    {
+      "name": "EDYCJA",
+      "description": "EDYCJA",
+      "user_ids": [1,2,3]
+    }
+
+  const testEditFunc = data => {
+    alert("NIE SKOŃCZONE");
+    console.log(data,testData);
+    editSingleGroup(data,testData);
+  }
+
   if (isLoading) { return (<div>Loading...</div>); }
 
   return (
     <Grid item md={10}>
-      {error && <div>{error}</div>}
       <TableContainer className={css.table}>
         <NavLink
           to="/users/groups/addnewgroup"
@@ -49,9 +62,9 @@ const Groups = ({ getGroups, removeGroup, groups: { isLoading, data = [], error 
               <TableRow className={css.tableRow} key={group.id}>
                 <TableCell className={css.tableBodyCell} align="left">{group.id}</TableCell>
                 <TableCell className={css.tableBodyCell}>{group.attributes.name}</TableCell>
-                <TableCell className={css.tableBodyCell}><EditIcon className={css.Icon} /></TableCell>
+                <TableCell className={css.tableBodyCell}><EditIcon onClick={() => testEditFunc(group.id)} className={css.Icon} /></TableCell>
                 <TableCell className={css.tableBodyCell}>
-                  <DeleteIcon className={css.Icon} onClick={() => removeGroup(group.id)} />
+                  <DeleteIcon className={css.Icon} onClick={() => removeGroup(data)} />
                 </TableCell>
               </TableRow>
             ))}
@@ -66,12 +79,14 @@ const mapStateToProps = (state) => ({ groups: state.groups });
 const mapDispatchToProps = (dispatch) => ({
   getGroups: () => dispatch(fetchGroups()),
   removeGroup: (groupId) => dispatch(deleteGroup(groupId)),
+  editSingleGroup: (groupId) => dispatch(editGroup(groupId)),
 })
 
 Groups.propTypes = {
   groups: PropTypes.object.isRequired,
   getGroups: PropTypes.func.isRequired,
   removeGroup: PropTypes.func.isRequired,
+  editSingleGroup: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(

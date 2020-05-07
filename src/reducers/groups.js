@@ -3,6 +3,9 @@ import {
   ADD_GROUP_REQUEST,
   ADD_GROUP_SUCCESS,
   ADD_GROUP_FAILURE,
+  EDIT_GROUP_REQUEST,
+  EDIT_GROUP_SUCCESS,
+  EDIT_GROUP_FAILURE,
   FETCH_GROUPS_REQUEST,
   FETCH_GROUPS_SUCCESS,
   FETCH_GROUPS_FAILURE,
@@ -32,16 +35,22 @@ export default function (state = initState, action) {
   switch (type) {
     case ADD_GROUP_REQUEST:
     case FETCH_GROUPS_REQUEST:
+    case EDIT_GROUP_REQUEST:
     case DELETE_GROUP_REQUEST:
       return setIsLoading(state, true)
+
     case FETCH_GROUPS_SUCCESS:
       return setGroups(state, response.data.data)
-    case ADD_GROUP_FAILURE:
-    case FETCH_GROUPS_FAILURE:
-    case DELETE_GROUP_FAILURE:
-      return setError(state, error.response.data.details)
     case DELETE_GROUP_SUCCESS:
       return deleteGroup(state, action.groupId)
+    case EDIT_GROUP_SUCCESS:
+      return editGroup(state, action.groupId)
+
+    case ADD_GROUP_FAILURE:
+    case FETCH_GROUPS_FAILURE:
+    case EDIT_GROUP_FAILURE:
+    case DELETE_GROUP_FAILURE:
+      return setError(state, error.response.data.details)
 
     default:
       return state
