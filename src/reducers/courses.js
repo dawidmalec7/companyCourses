@@ -24,8 +24,8 @@ import {
   
   const setIsLoading = (state, flag) => updateObject(state, { isLoading: flag });
   const setError = (state, error) => updateObject(state, { isLoading: false, error });
-  const setCOURSEs = (state, data) => updateObject(state, { isLoading: false, data });
-  const deleteCOURSE = (state, CourseId) => (
+  const setCourses = (state, data) => updateObject(state, { isLoading: false, data });
+  const deleteCourse = (state, CourseId) => (
     updateObject(state, { isLoading: false, data: state.data.filter((item) => item.id !== CourseId) })
   );
   

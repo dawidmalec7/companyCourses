@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import Grid from '@material-ui/core/Grid';
+
 import CourseItem from './CourseItem';
+import { fetchCourses } from '../../actions/courses';
 
 const coursesTestData = [
   {
@@ -47,16 +52,41 @@ const coursesTestData = [
   },
 ];
 
-const CourseList = () => (
-  <Grid container spacing={3}>
-    {
-      coursesTestData.map((course) => (
-        <Grid item md={4}>
-          <CourseItem course={course} />
-        </Grid>
-      ))
-    }
-  </Grid>
-)
+const CourseList = ({ getCourses, courses: { isLoading, data = [], error } }) => {
+  useEffect(() => {
+    getCourses();
+  }, []);
+  
+  if (isLoading) { return (<div>Loading...</div>); }
 
-export default CourseList;
+  return(
+    <Grid container spacing={3}>
+
+      {
+        // TEST
+        data.map((course) => console.log(course))
+      }
+
+      {
+        coursesTestData.map((course) => (
+          <Grid item md={4}>
+            <CourseItem course={course} />
+          </Grid>
+        ))
+      }
+    </Grid>
+)}
+
+const mapStateToProps = (state) => ({ courses: state.courses });
+const mapDispatchToProps = (dispatch) => ({
+  getCourses: () => dispatch(fetchCourses()),
+})
+
+CourseList.propTypes = {
+  courses: PropTypes.object.isRequired,
+  getCourses: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  CourseList,
+);

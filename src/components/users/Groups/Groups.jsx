@@ -64,7 +64,7 @@ const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, 
                 <TableCell className={css.tableBodyCell}>{group.attributes.name}</TableCell>
                 <TableCell className={css.tableBodyCell}><EditIcon onClick={() => testEditFunc(group.id)} className={css.Icon} /></TableCell>
                 <TableCell className={css.tableBodyCell}>
-                  <DeleteIcon className={css.Icon} onClick={() => removeGroup(data)} />
+                  <DeleteIcon className={css.Icon} onClick={() => removeGroup(group.id)} />
                 </TableCell>
               </TableRow>
             ))}
