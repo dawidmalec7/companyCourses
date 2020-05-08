@@ -18,7 +18,7 @@ import {
 export const fetchCourses = () => ({
   types: [FETCH_COURSES_REQUEST, FETCH_COURSES_SUCCESS, FETCH_COURSES_FAILURE],
   shouldCallAPI: (state) => state.courses.data.length === 0,
-  callAPI: () => axios.get('/api/v1/courses'),
+  callAPI: () => axios.get('/api/v1/my_courses'),
   payload: {},
 })
 
