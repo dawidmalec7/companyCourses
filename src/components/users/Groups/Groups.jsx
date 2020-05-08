@@ -53,6 +53,7 @@ const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, 
             <TableRow>
               <TableCell className={css.tableHeaderCell}>ID</TableCell>
               <TableCell className={css.tableHeaderCell}>Group</TableCell>
+              <TableCell className={css.tableHeaderCell}>Users</TableCell>
               <TableCell className={css.tableHeaderCell}>Edit</TableCell>
               <TableCell className={css.tableHeaderCell}>Delete</TableCell>
             </TableRow>
@@ -60,11 +61,13 @@ const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, 
           <TableBody>
             {data.map((group) => (
               <TableRow className={css.tableRow} key={group.id}>
+                {console.log(group)}
                 <TableCell className={css.tableBodyCell} align="left">{group.id}</TableCell>
                 <TableCell className={css.tableBodyCell}>{group.attributes.name}</TableCell>
+                <TableCell className={css.tableBodyCell}>{group.attributes.users.data.length}</TableCell>
                 <TableCell className={css.tableBodyCell}><EditIcon onClick={() => testEditFunc(group.id)} className={css.Icon} /></TableCell>
                 <TableCell className={css.tableBodyCell}>
-                  <DeleteIcon className={css.Icon} onClick={() => removeGroup(data)} />
+                  <DeleteIcon className={css.Icon} onClick={() => removeGroup(group.id)} />
                 </TableCell>
               </TableRow>
             ))}

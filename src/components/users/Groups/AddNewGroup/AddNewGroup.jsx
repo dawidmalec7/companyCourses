@@ -1,28 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form'
 
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import {
+  Grid,
+  TextField,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow
+} from '@material-ui/core';
+
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AddIcon from '@material-ui/icons/Add';
 
 import SmallButton from '../../../UI/Buttons/SmallButton/SmallButton';
 import css from './AddNewGroup.module.scss';
 import { addGroup } from '../../../../actions/groups';
+import { fetchUsers } from '../../../../actions/users';
 
-const AddNewGroup = ({ addSingleGroup }) => {
+const AddNewGroup = ({ addSingleGroup, getUsers, userIds = [] , users: { data = [] } }) => {
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   const { register, handleSubmit } = useForm();
 
+//TESTOWO DODAWANIE USEROW I SUBMIT
+  const handleAddUserIcon = (e, userId) => {
+      e.target.remove();
+      const intUserId = parseInt(userId, 10);
+      userIds.push(intUserId);
+      console.log(userIds);
+      return userIds;
+  }
   const onSubmit = data => {
-    // To jest mocno testowe
-    let testUser_ids = {};
-    testUser_ids = data;
-    testUser_ids.user_ids = [1,2,3];
-    addSingleGroup(testUser_ids);
+    let copyData = data;
+    copyData.user_ids = userIds;
+    addSingleGroup(copyData);
     //Przeładowuję bo grupy się nie ładują bez tego
     location.reload();
   }
+
+  //END COMENT :D
 
   return(
     <>
@@ -50,6 +77,35 @@ const AddNewGroup = ({ addSingleGroup }) => {
                 className={css.TextField}
                 id="description"
             />
+            <ExpansionPanel className={css.heading}>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+              >
+                <Typography>Users</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell className={css.tableHeaderCell}>ID</TableCell>
+                    <TableCell className={css.tableHeaderCell}>E-Mail</TableCell>
+                    <TableCell className={css.tableHeaderCell}>Scope</TableCell>
+                    <TableCell className={css.tableHeaderCell}>Add</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data.map((user) => (
+                    <TableRow className={css.tableRow} key={user.id}>
+                      <TableCell className={css.tableBodyCell} align="left">{user.id}</TableCell>
+                      <TableCell className={css.tableBodyCell}>{user.attributes.email}</TableCell>
+                      <TableCell className={css.tableBodyCell}>{user.attributes.scope}</TableCell>
+                      <TableCell className={css.tableBodyCell}><AddIcon onClick={(e) => handleAddUserIcon(e, user.id)} className={css.icon}/></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
           <button type="submit" className={css.smallButton} >Dodaj</button>
         </form>
       </Grid>
@@ -57,9 +113,10 @@ const AddNewGroup = ({ addSingleGroup }) => {
   )
 }
 
-const mapStateToProps = (state) => ({ groups: state.groups });
+const mapStateToProps = (state) => ({ groups: state.groups },{ users: state.users });
 const mapDispatchToProps = (dispatch) => ({
   addSingleGroup: (testData) => dispatch(addGroup(testData)),
+  getUsers: () => dispatch(fetchUsers()),
 })
 
 // const mapDispatchToProps = (dispatch) => ({
