@@ -1,0 +1,14 @@
+@import "../../config/scss/variables.scss";
+
+.addNewCourseLink {
+    text-decoration: none;
+}
+
+.addCourseButton {
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+    color: $primary !important;
+    font-family: $regularBold !important;
+    border: 2px solid $primary !important;
+    font-weight: 900 !important;
+}

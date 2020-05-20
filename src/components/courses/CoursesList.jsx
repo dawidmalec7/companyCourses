@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
+import { Route, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 
 import CourseItem from './CourseItem';
-import { fetchCourses } from '../../actions/courses';
+import { fetchCourses, addCourse } from '../../actions/courses';
+
+import SmallButton from '../UI/Buttons/SmallButton/SmallButton';
+import css from './CoursesList.module.scss';
+import AddNewCourse from './AddNewCourse/AddNewCourse';
 
 const coursesTestData = [
   {
@@ -52,24 +57,31 @@ const coursesTestData = [
   },
 ];
 
-const CourseList = ({ getCourses, courses: { isLoading, data = [], error } }) => {
+const CourseList = ({ addSingleCourse, getCourses, courses: { isLoading, data = [], error } }) => {
   useEffect(() => {
     getCourses();
   }, []);
-  
+
   if (isLoading) { return (<div>Loading...</div>); }
+
+  const dataToTest = {
+    "name": "Działa",
+    "description": "jakotako"
+  }
+
+  const addTestCourse = (id, data) => {
+    addSingleCourse(id,data);
+    location.reload();
+  }
 
   return(
     <Grid container spacing={3}>
-
+      <Grid item md={12}>
+        <button onClick={() => (addTestCourse(90,dataToTest))}>DODAJ TESTOWY KURS</button>
+      </Grid>
       {
-        // TEST
-        data.map((course) => console.log(course))
-      }
-
-      {
-        coursesTestData.map((course) => (
-          <Grid item md={4}>
+        data.map((course) => (
+          <Grid item md={4} key={course.id}>
             <CourseItem course={course} />
           </Grid>
         ))
@@ -79,6 +91,7 @@ const CourseList = ({ getCourses, courses: { isLoading, data = [], error } }) =>
 
 const mapStateToProps = (state) => ({ courses: state.courses });
 const mapDispatchToProps = (dispatch) => ({
+  addSingleCourse: (id, data) => dispatch(addCourse(id, data)),
   getCourses: () => dispatch(fetchCourses()),
 })
 

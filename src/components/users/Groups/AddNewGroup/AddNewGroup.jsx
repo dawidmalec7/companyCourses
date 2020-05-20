@@ -115,7 +115,7 @@ const AddNewGroup = ({ addSingleGroup, getUsers, userIds = [] , users: { data = 
 
 const mapStateToProps = (state) => ({ groups: state.groups },{ users: state.users });
 const mapDispatchToProps = (dispatch) => ({
-  addSingleGroup: (testData) => dispatch(addGroup(testData)),
+  addSingleGroup: (data) => dispatch(addGroup(data)),
   getUsers: () => dispatch(fetchUsers()),
 })
 

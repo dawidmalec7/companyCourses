@@ -29,6 +29,9 @@ const setGroups = (state, data) => updateObject(state, { isLoading: false, data 
 const deleteGroup = (state, groupId) => (
   updateObject(state, { isLoading: false, data: state.data.filter((item) => item.id !== groupId) })
 );
+const editGroup = (state, groupId) => (
+  updateObject(state, { isLoading: false, data: state.data.filter((item) => item.id !== groupId) })
+);
 
 export default function (state = initState, action) {
   const { type, response, error } = action;

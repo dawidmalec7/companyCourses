@@ -22,9 +22,9 @@ export const fetchCourses = () => ({
   payload: {},
 })
 
-export const addCourse = (CourseData) => ({
+export const addCourse = (courseId, CourseData) => ({
   types: [ADD_COURSE_REQUEST, ADD_COURSE_SUCCESS, ADD_COURSE_FAILURE],
-  callAPI: () => axios.post('/api/v1/courses', CourseData),
+  callAPI: () => axios.post(`/api/v1/groups/${courseId}/courses`, CourseData),
   payload: {},
 })
 
