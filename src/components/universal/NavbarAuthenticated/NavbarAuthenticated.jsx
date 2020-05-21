@@ -25,6 +25,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ListItemLink from '../../UI/ListItemLink/ListItemLink';
 
 import { signOutAction } from '../../../actions/auth';
+import css from './NavbarAuthenticated.module.scss';
 
 const NavbarAuthenticated = ({ signOut }) => {
   const drawerWidth = 240;
@@ -114,7 +115,11 @@ const NavbarAuthenticated = ({ signOut }) => {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" noWrap>
-                Siema
+                Courses App
+              </Typography>
+              <Typography className={css.loggedUser}>
+                  Logged in as Admin
+                  <img src="https://mercomp.pl/wp-content/uploads/2018/05/user-avatar-5.png" />
               </Typography>
             </Toolbar>
           </AppBar>

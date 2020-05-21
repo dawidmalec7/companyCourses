@@ -34,8 +34,8 @@ export const editCourse= (CourseId,CourseData) => ({
   payload: {},
 })
 
-export const deleteCourse = (CourseId) => ({
+export const deleteCourse = (groupId, CourseId) => ({
   types: [DELETE_COURSE_REQUEST, DELETE_COURSE_SUCCESS, DELETE_COURSE_FAILURE],
-  callAPI: () => axios.delete(`/api/v1/courses/${CourseId}`),
+  callAPI: () => axios.delete(`/api/v1/groups/${groupId}/courses/${CourseId}`),
   payload: { CourseId },
 })

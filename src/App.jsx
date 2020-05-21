@@ -116,7 +116,7 @@ const App = ({ authenticated }) => {
             <div className={classes.toolbar} />
             <div className={classes.content}>
               <Route exact path="/" component={requireAuth(Dashboard, ['admin', 'manager', 'standard'])} />
-              <Route exact path="/courses" component={requireAuth(Courses, ['admin', 'manager', 'standard'])} />
+              <Route path="/courses" component={requireAuth(Courses, ['admin', 'manager', 'standard'])} />
               <Route path="/users" component={requireAuth(Users, ['admin', 'manager'])} />
               <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin', 'manager'])} />
             </div>

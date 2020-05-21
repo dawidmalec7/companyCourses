@@ -37,7 +37,7 @@ const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, 
     editSingleGroup(data,testData);
   }
 
-  if (isLoading) { return (<div>Loading...</div>); }
+  if (isLoading) { return (<div className={css.preloader}></div>); }
 
   return (
     <Grid item md={10}>

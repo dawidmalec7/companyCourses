@@ -22,7 +22,7 @@ const UsersList = ({ getUsers, removeUser, users: { isLoading, data = [], error 
     getUsers();
   }, []);
   console.log(isLoading);
-  if (isLoading) { return (<div>Loading...</div>); }
+  if (isLoading) { return (<div className={css.preloader}></div>); }
 
   return(
     <Grid item md={10}>
