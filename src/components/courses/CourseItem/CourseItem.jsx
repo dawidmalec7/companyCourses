@@ -66,7 +66,7 @@ const CourseItem = ({removeCourse, course: {id, type, attributes}, courses: {dat
         <SmallButton color="primary" component={Link} to={`/courses/${id}/edit`}>
            Edit
         </SmallButton>
-        <ConfirmationModal description={`${name} course will be permanently deleted.`} buttonLabel="Remove" confirmFunc={() => (removeCourse(93, id))} />
+        <ConfirmationModal description={`${attributes.name} course will be permanently deleted.`} buttonLabel="Remove" confirmFunc={() => (removeCourse(93, id))} />
       </CardActions>
     </Card>
   );

@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form'
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import Pagination from '@material-ui/lab/Pagination';
 
 import { addCourse } from '../../../actions/courses';
 import css from './AddNewCourse.module.scss';

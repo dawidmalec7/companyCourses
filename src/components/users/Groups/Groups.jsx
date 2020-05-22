@@ -1,10 +1,19 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { useForm } from 'react-hook-form'
 import Grid from '@material-ui/core/Grid';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
+
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,7 +23,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import css from './Groups.module.scss';
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
-
+import Modal from '@material-ui/core/Modal';
 import { fetchGroups, deleteGroup, editGroup } from '../../../actions/groups';
 
 
@@ -22,24 +31,30 @@ const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, 
   useEffect(() => {
     getGroups();
   }, []);
-  console.log(isLoading);
+
+  const { register, handleSubmit } = useForm();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   const testData =
     {
-      "name": "EDYCJA",
-      "description": "EDYCJA",
+      "name": "WYEDYTOWANY",
+      "description": "WY",
       "user_ids": [1,2,3]
     }
-
-  const testEditFunc = data => {
-    alert("NIE SKOŃCZONE");
-    console.log(data,testData);
-    editSingleGroup(data,testData);
-  }
 
   if (isLoading) { return (<div className={css.preloader}></div>); }
 
   return (
+    <>
     <Grid item md={10}>
       <TableContainer className={css.table}>
         <NavLink
@@ -61,11 +76,10 @@ const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, 
           <TableBody>
             {data.map((group) => (
               <TableRow className={css.tableRow} key={group.id}>
-                {console.log(group)}
                 <TableCell className={css.tableBodyCell} align="left">{group.id}</TableCell>
                 <TableCell className={css.tableBodyCell}>{group.attributes.name}</TableCell>
                 <TableCell className={css.tableBodyCell}>{group.attributes.users.data.length}</TableCell>
-                <TableCell className={css.tableBodyCell}><EditIcon onClick={() => testEditFunc(group.id)} className={css.Icon} /></TableCell>
+                <TableCell className={css.tableBodyCell}><EditIcon onClick={handleClickOpen} className={css.Icon} /></TableCell>
                 <TableCell className={css.tableBodyCell}>
                   <DeleteIcon className={css.Icon} onClick={() => removeGroup(group.id)} />
                 </TableCell>
@@ -75,6 +89,41 @@ const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, 
         </Table>
       </TableContainer>
     </Grid>
+        {/* EDIT MODAL */}
+    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Edit group</DialogTitle>
+        <h2>Nie skończone nie będzie działać!!!</h2>
+          <DialogContent>
+            <TextField
+              inputRef={register()}
+              margin="dense"
+              name="name"
+              id="name"
+              label="Name"
+              type="name"
+              fullWidth
+            />
+            <TextField
+              inputRef={register()}
+              margin="dense"
+              name="name"
+              id="description"
+              label="Description"
+              type="description"
+              fullWidth
+            />
+            <h2>Users [1,2,3]</h2>     
+          </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Update
+          </Button>
+          </DialogActions>
+      </Dialog>
+    </>
   )
 }
 
@@ -82,7 +131,7 @@ const mapStateToProps = (state) => ({ groups: state.groups });
 const mapDispatchToProps = (dispatch) => ({
   getGroups: () => dispatch(fetchGroups()),
   removeGroup: (groupId) => dispatch(deleteGroup(groupId)),
-  editSingleGroup: (groupId) => dispatch(editGroup(groupId)),
+  editSingleGroup: (groupId, groupData) => dispatch(editGroup(groupId, groupData)),
 })
 
 Groups.propTypes = {

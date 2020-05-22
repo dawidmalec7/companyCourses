@@ -119,7 +119,7 @@ const NavbarAuthenticated = ({ signOut }) => {
               </Typography>
               <Typography className={css.loggedUser}>
                   Logged in as Admin
-                  <img src="https://mercomp.pl/wp-content/uploads/2018/05/user-avatar-5.png" />
+                  <img src="https://webstockreview.net/images/user-icon-png-11.png" />
               </Typography>
             </Toolbar>
           </AppBar>
