@@ -33,7 +33,6 @@ const AddNewGroup = ({ addSingleGroup, getUsers, userIds = [] , users: { data = 
 
   const { register, handleSubmit } = useForm();
 
-//TESTOWO DODAWANIE USEROW I SUBMIT
   const handleAddUserIcon = (e, userId) => {
       e.target.remove();
       const intUserId = parseInt(userId, 10);

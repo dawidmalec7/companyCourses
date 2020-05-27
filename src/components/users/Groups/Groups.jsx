@@ -26,30 +26,32 @@ import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 import Modal from '@material-ui/core/Modal';
 import { fetchGroups, deleteGroup, editGroup } from '../../../actions/groups';
 
-
-const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, data = [], error } }) => {
+const Groups = ({getGroups, removeGroup, editSingleGroup, getUsers, groups: { isLoading, data = [] }}) => {
   useEffect(() => {
     getGroups();
   }, []);
 
   const { register, handleSubmit } = useForm();
   const [open, setOpen] = React.useState(false);
+  const [groupToEdit, setGroupToEdit] = React.useState(null);
 
-  const handleClickOpen = () => {
+  const userIds = [1,2,3,15]
+
+  const handleClickOpen = (group) => {
     setOpen(true);
+    setGroupToEdit(group);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-
-  const testData =
-    {
-      "name": "WYEDYTOWANY",
-      "description": "WY",
-      "user_ids": [1,2,3]
-    }
+  const onSubmit = data => {
+    let copyData = data;
+    copyData.user_ids = userIds;
+    editSingleGroup(groupToEdit.id, copyData);
+    location.reload();
+  }
 
   if (isLoading) { return (<div className={css.preloader}></div>); }
 
@@ -79,7 +81,7 @@ const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, 
                 <TableCell className={css.tableBodyCell} align="left">{group.id}</TableCell>
                 <TableCell className={css.tableBodyCell}>{group.attributes.name}</TableCell>
                 <TableCell className={css.tableBodyCell}>{group.attributes.users.data.length}</TableCell>
-                <TableCell className={css.tableBodyCell}><EditIcon onClick={handleClickOpen} className={css.Icon} /></TableCell>
+                <TableCell className={css.tableBodyCell}><EditIcon onClick={() => handleClickOpen(group)} className={css.Icon} /></TableCell>
                 <TableCell className={css.tableBodyCell}>
                   <DeleteIcon className={css.Icon} onClick={() => removeGroup(group.id)} />
                 </TableCell>
@@ -90,38 +92,37 @@ const Groups = ({ getGroups, removeGroup, editSingleGroup, groups: { isLoading, 
       </TableContainer>
     </Grid>
         {/* EDIT MODAL */}
-    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Edit group</DialogTitle>
-        <h2>Nie skończone nie będzie działać!!!</h2>
-          <DialogContent>
-            <TextField
-              inputRef={register()}
-              margin="dense"
-              name="name"
-              id="name"
-              label="Name"
-              type="name"
-              fullWidth
-            />
-            <TextField
-              inputRef={register()}
-              margin="dense"
-              name="name"
-              id="description"
-              label="Description"
-              type="description"
-              fullWidth
-            />
-            <h2>Users [1,2,3]</h2>     
-          </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Update
-          </Button>
-          </DialogActions>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Edit group {groupToEdit === null ? '' : groupToEdit.id}</DialogTitle>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <DialogContent>
+              <TextField
+                  inputRef={register()}
+                  defaultValue={groupToEdit === null ? '' : groupToEdit.attributes.name}
+                  label="Name"
+                  name="name"
+                  className={css.TextField}
+                  id="name"
+              />
+              <TextField
+                  inputRef={register()}
+                  defaultValue={groupToEdit === null ? '' : groupToEdit.attributes.description}
+                  label="Description"
+                  name="description"
+                  className={css.TextField}
+                  id="description"
+              />
+              <h2>Users [1,2,3]</h2>     
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button type="submit" onClick={handleClose} color="primary">
+                Update
+              </Button>
+            </DialogActions>
+          </form>
       </Dialog>
     </>
   )

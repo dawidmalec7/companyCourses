@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useForm } from 'react-hook-form'
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
@@ -13,18 +14,53 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 import css from './UsersList.module.scss';
-import { fetchUsers, deleteUser } from '../../../actions/users';
+import { fetchUsers, deleteUser, editUser } from '../../../actions/users';
 
-const UsersList = ({ getUsers, removeUser, users: { isLoading, data = [], error } }) => {
+const UsersList = ({ getUsers, removeUser, editSingleUser, users: { isLoading, data = [], error } }) => {
   useEffect(() => {
     getUsers();
   }, []);
-  console.log(isLoading);
+
+  const { register, handleSubmit } = useForm();
+
+  const [open, setOpen] = React.useState(false);
+  const [userToEdit, setUserToEdit] = React.useState(null);
+
+  const Scopes = [
+    {title: 'admin'},
+    {title: 'manager'},
+    {title: 'standard'},
+  ]
+
+  const handleClickOpen = (user) => {
+    setOpen(true);
+    setUserToEdit(user);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onSubmit = data => {
+    editSingleUser(userToEdit.id,data);
+  }
+
+
   if (isLoading) { return (<div className={css.preloader}></div>); }
 
   return(
+    <>
     <Grid item md={10}>
       <TableContainer className={css.table}>
       <NavLink
@@ -49,7 +85,7 @@ const UsersList = ({ getUsers, removeUser, users: { isLoading, data = [], error 
                 <TableCell className={css.tableBodyCell} align="left">{user.id}</TableCell>
                 <TableCell className={css.tableBodyCell}>{user.attributes.email}</TableCell>
                 <TableCell className={css.tableBodyCell}>{user.attributes.scope}</TableCell>
-                <TableCell className={css.tableBodyCell}><EditIcon className={css.icon} /></TableCell>
+                <TableCell className={css.tableBodyCell}><EditIcon className={css.icon} onClick={() => handleClickOpen(user)} /></TableCell>
                 <TableCell className={css.tableBodyCell}><DeleteIcon className={css.icon} onClick={() => removeUser(user.id)} /></TableCell>
               </TableRow>
             ))}
@@ -57,12 +93,56 @@ const UsersList = ({ getUsers, removeUser, users: { isLoading, data = [], error 
         </Table>
       </TableContainer>
     </Grid>
+         {/* EDIT MODAL */}
+    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Edit user {userToEdit === null ? '' : userToEdit.id}</DialogTitle>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <DialogContent>
+            <TextField
+                inputRef={register()}
+                defaultValue={userToEdit === null ? '' : userToEdit.attributes.email}
+                label="Email"
+                name="email"
+                className={css.TextField}
+                id="email"
+            />
+            <Autocomplete
+                id="scope"
+                options={Scopes}
+                getOptionLabel={(option) => option.title}
+                style={{ width: 400 }}
+                renderInput={(params) => 
+                    (
+                      <TextField
+                      {...params}
+                      inputRef={register({ required: true })}
+                      label="Scope"
+                      name="scope"
+                      className={css.TextField}
+                      id="scope"
+                      />
+                    )
+                }
+              />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button type="submit" onClick={handleClose} color="primary">
+              Update
+            </Button>
+          </DialogActions>
+        </form>
+    </Dialog>             
+    </>
   )}
 
 const mapStateToProps = (state) => ({ users: state.users });
 const mapDispatchToProps = (dispatch) => ({
   getUsers: () => dispatch(fetchUsers()),
   removeUser: (UserId) => dispatch(deleteUser(UserId)),
+  editSingleUser: (userId, userData) => dispatch(editUser(userId, userData)),
 })
 
 UsersList.propTypes = {

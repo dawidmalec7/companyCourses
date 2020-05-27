@@ -7,6 +7,9 @@ import {
     FETCH_USERS_REQUEST,
     FETCH_USERS_SUCCESS,
     FETCH_USERS_FAILURE,
+    EDIT_USER_REQUEST,
+    EDIT_USER_SUCCESS,
+    EDIT_USER_FAILURE,
     DELETE_USER_REQUEST,
     DELETE_USER_SUCCESS,
     DELETE_USER_FAILURE,
@@ -22,6 +25,12 @@ import {
   export const addUser = (UserData) => ({
     types: [ADD_USER_REQUEST, ADD_USER_SUCCESS, ADD_USER_FAILURE],
     callAPI: () => axios.post('/admin/v1/users', UserData),
+    payload: {},
+  })
+
+  export const editUser = (userId,userData) => ({
+    types: [EDIT_USER_REQUEST, EDIT_USER_SUCCESS, EDIT_USER_FAILURE],
+    callAPI: () => axios.put(`/api/v1/users/${userId}`, userData),
     payload: {},
   })
   

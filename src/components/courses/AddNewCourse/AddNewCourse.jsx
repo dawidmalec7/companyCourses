@@ -14,6 +14,12 @@ const AddNewCourse = ({ addSingleCourse}) => {
 
   const { register, handleSubmit } = useForm();
 
+  const scopes = [
+    {id: '1'},
+    {id: '2'},
+    {id: '3'},
+]
+
   const onSubmit = data => {
     //wrzucona na stałe grupa o id 93
     const id = 93;
@@ -44,6 +50,23 @@ const AddNewCourse = ({ addSingleCourse}) => {
               className={css.TextField}
               id="description"
           />
+          <Autocomplete
+            id="group"
+            options={scopes}
+            getOptionLabel={(option) => option.id}
+            style={{ width: 400 }}
+            renderInput={(params) => 
+                (
+                    <TextField
+                    {...params}
+                    label="Group"
+                    name="group"
+                    className={css.TextField}
+                    id="group"
+                    />
+                )
+            }
+              />
             <h2>Warning! Na stałe przypisana grupa id 93 w której są wszyscy użytkownicy</h2>
             <button type="submit" className={css.smallButton} >Dodaj</button>
         </form>
