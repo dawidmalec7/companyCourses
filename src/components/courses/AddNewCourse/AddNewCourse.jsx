@@ -3,28 +3,34 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form'
 
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
+import {
+  Grid,
+  TextField,
+} from '@material-ui/core';
+
+import Fab from '@material-ui/core/Fab';
+
 import { addCourse } from '../../../actions/courses';
+import { fetchGroups } from '../../../actions/groups';
+
 import css from './AddNewCourse.module.scss';
 
-const AddNewCourse = ({ addSingleCourse}) => {
+const AddNewCourse = ({ addSingleCourse, getGroups, groups: { data = [] }}) => {
+  useEffect(() => {
+    getGroups();
+  }, []);
 
-  const { register, handleSubmit } = useForm();
+const { register, handleSubmit } = useForm();
 
-  const scopes = [
-    {id: '1'},
-    {id: '2'},
-    {id: '3'},
-]
+const onSubmit = data => {
+    let dataToSend = {};
+    const groupId = data.group;
+    dataToSend.name = data.name;
+    dataToSend.description = data.description;
 
-  const onSubmit = data => {
-    //wrzucona na stałe grupa o id 93
-    const id = 93;
-    console.log(data);
-    addSingleCourse(id,data);
+    addSingleCourse(groupId,dataToSend);
     location.reload();
 }
 
@@ -33,54 +39,55 @@ const AddNewCourse = ({ addSingleCourse}) => {
       <Grid item md={8}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
-              inputRef={register({
-                required: "Required",
-              })}
+              inputRef={register({ required: true })}
               label="name"
               name="name"
               className={css.TextField}
               id="name"
+              variant="standard"
           />
           <TextField
-              inputRef={register({
-                required: "Required",
-              })}
+              inputRef={register({ required: true })}
               label="description"
               name="description"
               className={css.TextField}
               id="description"
+              variant="standard"
           />
           <Autocomplete
-            id="group"
-            options={scopes}
-            getOptionLabel={(option) => option.id}
-            style={{ width: 400 }}
-            renderInput={(params) => 
-                (
-                    <TextField
-                    {...params}
-                    label="Group"
-                    name="group"
-                    className={css.TextField}
-                    id="group"
-                    />
-                )
-            }
-              />
-            <h2>Warning! Na stałe przypisana grupa id 93 w której są wszyscy użytkownicy</h2>
-            <button type="submit" className={css.smallButton} >Dodaj</button>
+              id="group"
+              options={data}
+              getOptionLabel={(group) => group.id}
+              style={{ width: 400 }}
+              renderInput={(params) => 
+              (
+                  <TextField
+                  {...params}
+                  inputRef={register({ required: true })}
+                  label="Group"
+                  name="group"
+                  className={css.TextField}
+                  id="group"
+                  />
+              )
+              }
+                />
+            <Fab color='secondary' variant="extended" type="submit" className={css.smallButton}>Add</Fab>
         </form>
       </Grid>
     </>
   )
 }
 
-const mapStateToProps = (state) => ({ courses: state.courses });
+const mapStateToProps = (state) => ({ courses: state.courses },{ groups: state.groups });
 const mapDispatchToProps = (dispatch) => ({
+  getGroups: () => dispatch(fetchGroups()),
   addSingleCourse: (id, data) => dispatch(addCourse(id, data)),
 })
 
 AddNewCourse.propTypes = {
+  groups: PropTypes.object.isRequired,
+  getGroups: PropTypes.func.isRequired,
   courses: PropTypes.object.isRequired,
   addSingleCourse: PropTypes.func.isRequired,
 };

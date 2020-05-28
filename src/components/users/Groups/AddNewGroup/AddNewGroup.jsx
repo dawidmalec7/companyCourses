@@ -17,6 +17,7 @@ import {
   TableRow
 } from '@material-ui/core';
 
+import Fab from '@material-ui/core/Fab';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -105,7 +106,7 @@ const AddNewGroup = ({ addSingleGroup, getUsers, userIds = [] , users: { data = 
               </Table>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-          <button type="submit" className={css.smallButton} >Dodaj</button>
+            <Fab color='secondary' variant="extended" type="submit" className={css.smallButton}>Add</Fab>
         </form>
       </Grid>
     </>

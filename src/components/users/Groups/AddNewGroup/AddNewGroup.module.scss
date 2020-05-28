@@ -3,10 +3,6 @@
 .grid {
     margin-top: 80px !important;
 
-    .disabledForTest {
-        display: none !important;
-    }
-
     .smallButton {
         width: 100px;
         padding: 10px !important;
@@ -23,7 +19,6 @@
     }
 
     form {
-        border: 2px solid $primary;
         padding: 10px;
         display: flex;
         justify-content: center;
@@ -44,10 +39,6 @@
     
             .icon:hover {
                 color: $primary !important;
-            }
-
-            .icon2 {
-                color: red !important;
             }
         }
 

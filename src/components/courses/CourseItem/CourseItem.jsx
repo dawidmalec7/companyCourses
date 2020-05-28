@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Rating from '@material-ui/lab/Rating';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -51,14 +52,17 @@ const CourseItem = ({removeCourse, course: {id, type, attributes}, courses: {dat
           <Typography>
             {type}
           </Typography>
-          <Typography>
-            Created: {`${attributes.created_at.substr(0,10)} at ${attributes.created_at.substr(12, 7)}`}
-          </Typography>
           <Typography gutterBottom variant="h5" component="h2">
             {attributes.name}
           </Typography>
           <Typography>
             {attributes.description}
+          </Typography>
+          <Typography>
+            <Rating name="half-rating" defaultValue={5} precision={0.5} />
+          </Typography>
+          <Typography>
+            Created: {`${attributes.created_at.substr(0,10)} at ${attributes.created_at.substr(12, 7)}`}
           </Typography>
         </CardContent>
       </CardActionArea>

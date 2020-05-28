@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Fab from '@material-ui/core/Fab';
 
 import SmallButton from '../../../UI/Buttons/SmallButton/SmallButton';
 import css from './AddNewUser.module.scss';
@@ -23,10 +24,10 @@ const AddNewUser = ({ addSingleUser }) => {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = data => {
-        let test = {};
-        test = data;
-        console.log(test);
-        addSingleUser(test);
+        let copyData = {};
+        copyData = data;
+        console.log(copyData);
+        addSingleUser(copyData);
         location.reload();
     }
 
@@ -80,7 +81,7 @@ const AddNewUser = ({ addSingleUser }) => {
                         )
                     }
                 />
-            <button type="submit" className={css.smallButton} >Dodaj</button>
+            <Fab color='secondary' variant="extended" type="submit" className={css.smallButton}>Add</Fab>
             </form>
         </Grid>
         </>
