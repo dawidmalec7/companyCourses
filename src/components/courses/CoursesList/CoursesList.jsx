@@ -10,60 +10,14 @@ import CourseItem from '../CourseItem/CourseItem';
 import css from './CoursesList.module.scss';
 
 
-const coursesTestData = [
-  {
-    _id: '5e77794bfed6ffb8d7975490',
-    index: 0,
-    name: 'Latisha',
-    isActive: false,
-    picture: 'http://placehold.it/512x512',
-  },
-  {
-    _id: '5e77794bbc22f4a8dddd3ae2',
-    index: 1,
-    name: 'Cole',
-    isActive: true,
-    picture: 'http://placehold.it/512x512',
-  },
-  {
-    _id: '5e77794b6f01dfc759ebf61d',
-    index: 2,
-    name: 'Selena',
-    isActive: true,
-    picture: 'http://placehold.it/512x512',
-  },
-  {
-    _id: '5e77794b81997cdee03993e2',
-    index: 3,
-    name: 'Estes',
-    isActive: false,
-    picture: 'http://placehold.it/512x512',
-  },
-  {
-    _id: '5e77794b85205358d08fac12',
-    index: 4,
-    name: 'Slater',
-    isActive: false,
-    picture: 'http://placehold.it/512x512',
-  },
-  {
-    _id: '5e77794b47f6bb360ef6bb5d',
-    index: 5,
-    name: 'Pollard',
-    isActive: true,
-    picture: 'http://placehold.it/512x512',
-  },
-];
-
 const CourseList = ({ getCourses, courses: { isLoading, data = [], error } }) => {
   useEffect(() => {
     getCourses();
   }, []);
 
-  if (isLoading) {return (<div className={css.preloader}></div>)}; 
-  
+  if (isLoading) { return (<div className={css.preloader} />) }
 
-  return(
+  return (
     <>
       <Grid container spacing={3}>
         <Grid item md={12}>
@@ -78,7 +32,8 @@ const CourseList = ({ getCourses, courses: { isLoading, data = [], error } }) =>
         }
       </Grid>
     </>
-)}
+  )
+}
 
 const mapStateToProps = (state) => ({ courses: state.courses });
 const mapDispatchToProps = (dispatch) => ({

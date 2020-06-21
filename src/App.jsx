@@ -16,6 +16,8 @@ import Signin from './components/auth/Signin';
 import ForgotPassword from './components/auth/ForgotPassword';
 import requireAuth from './components/hoc/RequireAuth';
 import CourseForm from './components/courses/CourseForm/CourseForm';
+import Course from './components/courses/Course/Course';
+import Quiz from './components/quiz/Quiz';
 
 import noRequireAuth from './components/hoc/noRequireAuth';
 import Dashboard from './pages/Dashboard';
@@ -95,7 +97,7 @@ const App = ({ authenticated }) => {
     <MuiThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        { authenticated && <NavbarAuthenticated /> }
+        {authenticated && <NavbarAuthenticated />}
         <main className={classes.main}>
           {!authenticated && (
             <Grid
@@ -117,8 +119,10 @@ const App = ({ authenticated }) => {
             <div className={classes.content}>
               <Route exact path="/" component={requireAuth(Dashboard, ['admin', 'manager', 'standard'])} />
               <Route path="/courses" component={requireAuth(Courses, ['admin', 'manager', 'standard'])} />
-              <Route path="/users" component={requireAuth(Users, ['admin', 'manager'])} />
+              <Route path="/course/:courseId" exact="/course/:courseId" component={requireAuth(Course, ['admin', 'manager', 'standard'])} />
+              <Route path="/course/:courseId/quiz/:sectionId" component={requireAuth(Quiz, ['admin', 'manager', 'standard'])} />
               <Route path="/courses/:courseId/edit" component={requireAuth(CourseForm, ['admin', 'manager'])} />
+              <Route path="/users" component={requireAuth(Users, ['admin', 'manager'])} />
             </div>
           </>
         </main>
@@ -135,6 +139,6 @@ App.propTypes = {
   authenticated: PropTypes.bool.isRequired,
 }
 export default
-process.env.NODE_ENV === 'development'
-  ? hot(module)(connect(mapStateToProps)(App))
-  : connect(mapStateToProps)(App)
+  process.env.NODE_ENV === 'development'
+    ? hot(module)(connect(mapStateToProps)(App))
+    : connect(mapStateToProps)(App)
