@@ -11,34 +11,33 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import { convertFromHTML } from 'draft-js';
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 import ConfirmationModal from '../../UI/ConfirmationModal/ConfirmationModal';
 
 import { deleteCourse } from '../../../actions/courses';
-import { convertFromHTML } from 'draft-js';
 
-const CourseItem = ({removeCourse, course: {id, type, attributes}, courses: {data = [], error }}) => {
-
-      const useStyles = makeStyles({
-        root: {
-          minWidth: 275,
-          margin: 10,
-          boxShadow: `10px 10px 5px 0px rgba(0,0,0,0.75)`,
-          transition: '2s',
-        },
-        title: {
-          fontSize: 14,
-        },
-        media: {
-          minHeight: 200,
-          background: `url(${'https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'})`,
-          backgroundSize: `cover`,
-        },
-      });
+const CourseItem = ({ removeCourse, course: { id, type, attributes }, courses: { data = [], error } }) => {
+  const useStyles = makeStyles({
+    root: {
+      minWidth: 275,
+      margin: 10,
+      boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)',
+      transition: '2s',
+    },
+    title: {
+      fontSize: 14,
+    },
+    media: {
+      minHeight: 200,
+      background: `url(${'https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'})`,
+      backgroundSize: 'cover',
+    },
+  });
 
   const classes = useStyles();
 
-    return (
+  return (
     <Card className={classes.root} key={id}>
       <CardActionArea>
         <CardMedia
@@ -62,15 +61,20 @@ const CourseItem = ({removeCourse, course: {id, type, attributes}, courses: {dat
             <Rating name="half-rating" defaultValue={5} precision={0.5} />
           </Typography>
           <Typography>
-            Created: {`${attributes.created_at.substr(0,10)} at ${attributes.created_at.substr(12, 7)}`}
+            Created:
+            {' '}
+            {`${attributes.created_at.substr(0, 10)} at ${attributes.created_at.substr(12, 7)}`}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <SmallButton color="primary" component={Link} to={`/courses/${id}/edit`}>
-           Edit
+          Edit
         </SmallButton>
         <ConfirmationModal description={`${attributes.name} course will be permanently deleted.`} buttonLabel="Remove" confirmFunc={() => (removeCourse(93, id))} />
+        <SmallButton color="primary" component={Link} to={`/course/${id}`}>
+          Start Course
+        </SmallButton>
       </CardActions>
     </Card>
   );
@@ -86,8 +90,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 );
 
 
-
-//!!!!!!!POPRZEDNIA WERSJA!!!!!!!!!!!//
+//! !!!!!!POPRZEDNIA WERSJA!!!!!!!!!!!//
 
 
 //   course: {
