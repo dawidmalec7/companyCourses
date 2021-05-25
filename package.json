@@ -20,7 +20,7 @@
     "react-app-rewire-hot-loader": "^2.0.1",
     "react-app-rewired": "^2.1.5",
     "react-dom": "^16.13.1",
-    "react-draft-wysiwyg": "^1.14.4",
+    "react-draft-wysiwyg": "^1.14.6",
     "react-hook-form": "^5.4.1",
     "react-hot-loader": "^4.12.20",
     "react-quiz-component": "^0.3.4",
